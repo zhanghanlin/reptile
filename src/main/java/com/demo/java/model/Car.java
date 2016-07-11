@@ -70,6 +70,10 @@ public class Car {
         return price;
     }
 
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -82,9 +86,5 @@ public class Car {
                 ", type='" + type + '\'' +
                 ", price='" + price + '\'' +
                 '}';
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 }

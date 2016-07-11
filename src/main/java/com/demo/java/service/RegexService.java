@@ -13,6 +13,10 @@ public class RegexService {
     @Resource
     RegexDao regexDao;
 
+    public Regex get(String id) {
+        return regexDao.get(id);
+    }
+
     public void save(Regex regex) throws Exception {
         regexDao.save(regex);
     }

@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/fetcher/input">Fetcher Car</a>
 <a href="/regex/input">Regex Input</a>
+<a href="/regex/list">Regex List</a>
 </body>
 </html>

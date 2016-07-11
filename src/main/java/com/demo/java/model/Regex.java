@@ -1,12 +1,19 @@
 package com.demo.java.model;
 
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringEscapeUtils;
+
 public class Regex {
     private String id;
     private String seed;
     private String regex;
-    private String start;
-    private String thread;
+    private int start;
+    private int thread;
     private String data;
+
+    public JSONObject getJSONData() {
+        return JSONObject.parseObject(StringEscapeUtils.unescapeHtml4(data));
+    }
 
     public String getData() {
         return data;
@@ -40,21 +47,19 @@ public class Regex {
         this.regex = regex;
     }
 
-    public String getStart() {
+    public int getStart() {
         return start;
     }
 
-    public void setStart(String start) {
+    public void setStart(int start) {
         this.start = start;
     }
 
-    public String getThread() {
+    public int getThread() {
         return thread;
     }
 
-    public void setThread(String thread) {
+    public void setThread(int thread) {
         this.thread = thread;
     }
-
-
 }

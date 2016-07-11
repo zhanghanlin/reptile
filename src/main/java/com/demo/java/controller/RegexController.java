@@ -33,7 +33,6 @@ public class RegexController {
         }
         return "regexList";
     }
-
     @RequestMapping("/list")
     public ModelAndView list() {
         List<Regex> list = regexService.list();
