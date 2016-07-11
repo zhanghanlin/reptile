@@ -77,24 +77,6 @@ public class CarCrawler extends BreadthCrawler {
             if (car != null) {
                 car.setId(DigestUtils.md5B64(car.getTitle()));
             }
-            /* Car car = new Car();
-            car.setTitle(e.select("td.t a").first().text());
-            String imgSrc = e.select("td.img img").attr("lazy_src");
-            if (StringUtils.isBlank(imgSrc)) {
-                imgSrc = e.select("td.img img").attr("src");
-            }
-            car.setImg(imgSrc);
-            String yk[] = e.select("td.t p").text().replaceAll("\\s*", "").split("/");
-            if (yk.length > 0)
-                car.setYear(patternNum(yk[0]));
-            if (yk.length > 1)
-                car.setKilometre(patternNum(yk[1]));
-            if (yk.length > 2)
-                car.setLiter(patternNum(yk[2]));
-            if (yk.length > 3)
-                car.setType(yk[3]);
-            car.setPrice(e.select("td.tc b").text());
-            car.setId(DigestUtils.md5B64(car.getTitle()));*/
             carDao.saveOrUpdate(car);
         }
     }
@@ -116,14 +98,7 @@ public class CarCrawler extends BreadthCrawler {
     }
 
     public static void start(Regex regex) throws Exception {
-//        json = JSONObject.parseObject(StringEscapeUtils.unescapeHtml4(regex.getData()));
         json = regex.getJSONData();
         start(regex.getSeed(), regex.getRegex(), regex.getStart(), regex.getThread());
-    }
-
-    public static void main(String[] args) throws Exception {
-        /*CarCrawler.start("http://bj.58.com/ershouche"
-                , "http://bj.58.com/ershouche/pn[0-9]/.*"
-                , 1, 10);*/
     }
 }

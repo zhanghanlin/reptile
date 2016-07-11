@@ -35,6 +35,7 @@
             </td>
             <td>
                 <button class="fetcher">爬取</button>
+                <button class="fetcher_cron"><a href="/quartz/input?regexId=${item.id}">部署定时</a></button>
             </td>
         </tr>
     </c:forEach>
@@ -52,7 +53,7 @@
                 alert(msg);
             }
         })
-    })
+    });
 </script>
 </body>
 </html>
