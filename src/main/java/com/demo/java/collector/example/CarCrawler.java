@@ -9,10 +9,7 @@ import com.demo.java.dao.CarDao;
 import com.demo.java.model.Car;
 import com.demo.java.model.Regex;
 import com.demo.java.utils.SpringContextUtil;
-import com.demo.java.utils.crypto.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.jsoup.nodes.Document;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -20,9 +17,9 @@ import java.util.regex.Pattern;
 
 public class CarCrawler extends BreadthCrawler {
 
-    CarDao carDao = (CarDao) SpringContextUtil.getBean("carDao");
-
     private static JSONObject json;
+
+    CarDao carDao = (CarDao) SpringContextUtil.getBean("carDao");
 
     /**
      * 构造一个基于伯克利DB的爬虫
@@ -39,50 +36,35 @@ public class CarCrawler extends BreadthCrawler {
 
     @Override
     public void visit(Page page, CrawlDatums next) {
-        if (json == null) return;
-        Elements dates = page.doc().body().select(json.getString("select"));
-        for (Element e : dates) {
-            if (e.select("td.t a") == null || e.select("td.t a").size() == 0) {
-                continue;
-            }
-            JSONObject object = new JSONObject();
-            for (Map.Entry<String, Object> entry : json.getJSONObject("data").entrySet()) {
-                JSONObject jsonVal = (JSONObject) entry.getValue();
-                String attr = jsonVal.getString("attr");
-                int type = jsonVal.getInteger("type");
-                String select = jsonVal.getString("select");
-                String val = e.select(select).first().text();
-                if (StringUtils.isNoneBlank(attr)) {
-                    String[] attrs = attr.split(",");
-                    for (String a : attrs) {
-                        val = e.select(select).attr(a);
-                        if (StringUtils.isNoneBlank(val)) {
-                            break;
-                        }
-                    }
+        Document doc = page.doc();
+        JSONObject object = new JSONObject();
+        for (Map.Entry<String, Object> entry : json.entrySet()) {
+            if (entry.getKey().equals("id")) continue;
+            JSONObject jsonVal = (JSONObject) entry.getValue();
+            int type = jsonVal.getInteger("type");
+            String select = jsonVal.getString("select");
+            String val = doc.select(select).text();
+            if (type == 2) {
+                String split = jsonVal.getString("split");
+                int index = jsonVal.getInteger("index");
+                String[] valArr = val.split("\\" + split);
+                if (valArr.length > index - 1) {
+                    val = valArr[index - 1].trim();
+                } else {
+                    val = "";
                 }
-                if (type == 2) {
-                    String split = jsonVal.getString("split");
-                    int index = jsonVal.getInteger("index");
-                    String[] valArr = val.split(split);
-                    if (valArr.length > index - 1) {
-                        val = valArr[index - 1].trim();
-                    } else {
-                        val = "";
-                    }
-                }
-                object.put(entry.getKey(), val);
             }
-            Car car = JSON.toJavaObject(object, Car.class);
-            if (car != null) {
-                car.setId(DigestUtils.md5B64(car.getTitle()));
-            }
+            object.put(entry.getKey(), val);
+        }
+        Car car = JSON.toJavaObject(object, Car.class);
+        if (car != null) {
+            car.setId(patternId(page.getUrl()));
             carDao.saveOrUpdate(car);
         }
     }
 
-    static String patternNum(String str) {
-        String regex = "\\d+(\\.\\d+)?";
+    static String patternId(String str) {
+        String regex = "\\d+[a-z]";
         Matcher matcher = Pattern.compile(regex).matcher(str);
         if (matcher.find())
             return matcher.group();

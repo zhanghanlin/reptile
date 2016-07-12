@@ -27,9 +27,7 @@
             <td>${item.start}</td>
             <td>${item.thread}</td>
             <td>
-                选择器:${item.getJSONData().getString('select')}<br/>
-                列信息:<br/>
-                <c:forEach var="col" items="${item.getJSONData().getJSONObject('data').entrySet()}">
+                <c:forEach var="col" items="${item.getJSONData().entrySet()}">
                     ${col.key}:<c:out value="${col.value}"/><br/>
                 </c:forEach>
             </td>

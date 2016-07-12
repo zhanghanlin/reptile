@@ -10,14 +10,12 @@
     <div>爬取深度 : <input name="start" style="width: 40px" value="5"/><br/></div>
     <div>线程数量 : <input name="thread" style="width: 40px" value="50"/><br/></div>
     ----------------------------------------------
-    <div>数据选择器 : <input id="data_select"/><br/></div>
     <input type="hidden" id="data" name="data"/>
     <div class="col_data">数据列 :
         <a class="add" href="###">+</a>
         <div>
             <input class="col_name"/>
             <input class="col_select"/>
-            <input class="col_attr"/>
             <select class="col_type">
                 <option value="1">无需处理</option>
                 <option value="2">分割处理</option>
@@ -34,26 +32,21 @@
         $(".col_data div:first").clone(true).appendTo(".col_data");
     });
     $('#submit').click(function () {
-        var col = {};
         var data = {};
         $.each($('.col_data div'), function (i, o) {
             var key = $(o).find('.col_name').val();
             var type = $(o).find('.col_type').val();
             var split = $(o).find('.col_split').val();
             var index = $(o).find('.col_index').val();
-            var attr = $(o).find('.col_attr').val();
             var select = $(o).find('.col_select').val();
             var ele = {};
             ele["select"] = select;
-            ele["attr"] = attr;
             ele["type"] = type;
             ele["split"] = split;
             ele["index"] = index;
             data[key] = ele;
         });
-        col['data'] = data;
-        col['select'] = $('#data_select').val();
-        $('#data').val(JSON.stringify(col));
+        $('#data').val(JSON.stringify(data));
         $.ajax({
             cache: true,
             type: "POST",
