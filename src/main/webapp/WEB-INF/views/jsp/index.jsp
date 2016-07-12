@@ -1,17 +1,41 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: andy
-  Date: 16/6/12
-  Time: 14:59
-  To change this template use File | Settings | File Templates.
---%>
+<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html lang="zh-CN">
 <head>
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/images/favicon.ico">
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <script src="/js/ie/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/js/ie/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv/html5shiv.min.js"></script>
+    <script src="/js/respond/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<a href="/regex/input">Regex Input</a>
-<a href="/regex/list">Regex List</a>
+<jsp:directive.include file="common/nav.html"/>
+<div class="container-fluid">
+    <div class="row">
+        <jsp:directive.include file="common/left.html"/>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Dashboard</h1>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/ie/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

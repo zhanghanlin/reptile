@@ -3,6 +3,7 @@ package com.demo.java.common.quartz;
 import java.util.Date;
 
 public class ScheduleJob {
+
     public static final String STATUS_RUNNING = "1";
 
     private String id;
@@ -19,7 +20,7 @@ public class ScheduleJob {
     /**
      * 任务分组
      */
-    private String group;
+    private String jobGroup;
 
     /**
      * 任务状态 是否启动任务
@@ -83,12 +84,12 @@ public class ScheduleJob {
         this.name = name;
     }
 
-    public String getGroup() {
-        return group;
+    public String getJobGroup() {
+        return jobGroup;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setJobGroup(String jobGroup) {
+        this.jobGroup = jobGroup;
     }
 
     public String getStatus() {
@@ -137,5 +138,9 @@ public class ScheduleJob {
 
     public void setMethodParam(String methodParam) {
         this.methodParam = methodParam;
+    }
+
+    public String getTriggerKey() {
+        return jobGroup + "." + name;
     }
 }

@@ -1,51 +1,81 @@
+<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>Title</title>
-    <style>
-        td {
-            border: 1px solid;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/images/favicon.ico">
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/dashboard.css" rel="stylesheet">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <script src="/js/ie/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/js/ie/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv/html5shiv.min.js"></script>
+    <script src="/js/respond/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<table style="border: 1px solid">
-    <thead>
-    <th>任务名称</th>
-    <th>任务分组</th>
-    <th>任务状态</th>
-    <th>Cron表达式</th>
-    <th>描述</th>
-    <th>操作</th>
-    </thead>
-    <tbody>
-    <c:forEach var="item" items="${list}" varStatus="status">
-        <tr>
-            <td>${item.name}</td>
-            <td>${item.group}</td>
-            <td>${item.status}</td>
-            <td>${item.cronExpression}</td>
-            <td>${item.description}</td>
-            <td qname="${item.name}" qgroup="${item.group}">
-                <button class="pause">暂停</button>
-                <button class="delete">删除</button>
-                <button class="resume">恢复</button>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-<script src="/js/jquery.min.js"></script>
+<jsp:directive.include file="common/nav.html"/>
+<div class="container-fluid">
+    <div class="row">
+        <jsp:directive.include file="common/left.html"/>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Dashboard</h1>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>组</th>
+                        <th>状态</th>
+                        <th>CRON</th>
+                        <th>描述</th>
+                        <th>#</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="item" items="${list}" varStatus="status">
+                        <tr id="${item.id}">
+                            <td>${item.name}</td>
+                            <td>${item.jobGroup}</td>
+                            <td>${item.status}</td>
+                            <td>${item.cronExpression}</td>
+                            <td>${item.description}</td>
+                            <td>
+                                <button class="btn btn-default btn-xs" action="run">启动</button>
+                                <button class="btn btn-default btn-xs" action="pause">暂停</button>
+                                <button class="btn btn-default btn-xs" action="delete">删除</button>
+                                <button class="btn btn-default btn-xs" action="resume">恢复</button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/ie/ie10-viewport-bug-workaround.js"></script>
 <script>
     $('td button').click(function () {
-        var clz = $(this).attr('class');
-        var name = $(this).parent().attr('qname');
-        var group = $(this).parent().attr('qgroup');
-        ex(clz, name, group);
+        var action = $(this).attr('action');
+        var id = $(this).parents('tr').attr('id');
+        ex(action, id);
     });
-    function ex(action, name, group) {
-        var url = '/quartz/' + action + '/' + name + '/' + group;
+    function ex(action, id) {
+        var url = '/quartz/' + action + '/' + id;
         $.ajax({
             url: url,
             cache: true,

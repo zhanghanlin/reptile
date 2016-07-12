@@ -17,7 +17,7 @@ public class RegexDao {
     public Regex get(String id) {
         String sql = "SELECT * FROM REGEX WHERE ID = ?";
         List<Regex> list = jdbcTemplate.query(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(Regex.class));
-        if (list == null)
+        if (list == null || list.isEmpty())
             return null;
         return list.get(0);
     }

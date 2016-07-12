@@ -13,11 +13,14 @@
             </pattern>
         </encoder>
     </appender>
+    <logger name="org.springframework.web">
+        <level value="WARN"/>
+    </logger>
     <logger name="com.demo.java">
         <level value="INFO"/>
     </logger>
     <logger name="com.demo.java.collector">
-        <level value="INFO"/>
+        <level value="WARN"/>
     </logger>
     <!-- Console -->
     <root level="INFO">

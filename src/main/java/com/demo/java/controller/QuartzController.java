@@ -2,6 +2,7 @@ package com.demo.java.controller;
 
 import com.demo.java.common.quartz.ScheduleFactory;
 import com.demo.java.common.quartz.ScheduleJob;
+import com.demo.java.service.JobService;
 import org.quartz.SchedulerException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +21,9 @@ import java.util.List;
 public class QuartzController {
 
     ScheduleFactory scheduleFactory = new ScheduleFactory();
+
+    @Resource
+    JobService jobService;
 
     @RequestMapping("input")
     public ModelAndView input(@RequestParam(defaultValue = "") String regexId) {
@@ -49,13 +54,11 @@ public class QuartzController {
         return new ModelAndView("quartzList", "list", list);
     }
 
-    @RequestMapping("pause/{name}/{group}")
+    @RequestMapping("pause/{id}")
     @ResponseBody
-    public String pauseJob(@PathVariable String name, @PathVariable String group) {
+    public String pauseJob(@PathVariable String id) {
         try {
-            ScheduleJob job = new ScheduleJob();
-            job.setName(name);
-            job.setGroup(group);
+            ScheduleJob job = jobService.get(id);
             scheduleFactory.pauseJob(job);
         } catch (SchedulerException e) {
             e.printStackTrace();
@@ -64,13 +67,11 @@ public class QuartzController {
     }
 
 
-    @RequestMapping("resume/{name}/{group}")
+    @RequestMapping("resume/{id}")
     @ResponseBody
-    public String resumeJob(@PathVariable String name, @PathVariable String group) {
+    public String resumeJob(@PathVariable String id) {
         try {
-            ScheduleJob job = new ScheduleJob();
-            job.setName(name);
-            job.setGroup(group);
+            ScheduleJob job = jobService.get(id);
             scheduleFactory.resumeJob(job);
         } catch (SchedulerException e) {
             e.printStackTrace();
@@ -78,14 +79,25 @@ public class QuartzController {
         return "OK";
     }
 
-    @RequestMapping("delete/{name}/{group}")
+    @RequestMapping("delete/{id}")
     @ResponseBody
-    public String deleteJob(@PathVariable String name, @PathVariable String group) {
+    public String deleteJob(@PathVariable String id) {
         try {
-            ScheduleJob job = new ScheduleJob();
-            job.setName(name);
-            job.setGroup(group);
+            ScheduleJob job = jobService.get(id);
             scheduleFactory.deleteJob(job);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+        return "OK";
+    }
+
+
+    @RequestMapping("run/{id}")
+    @ResponseBody
+    public String runJob(@PathVariable String id) {
+        try {
+            ScheduleJob job = jobService.get(id);
+            scheduleFactory.runAJobNow(job);
         } catch (SchedulerException e) {
             e.printStackTrace();
         }

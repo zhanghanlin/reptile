@@ -9,6 +9,7 @@ import com.demo.java.dao.CarDao;
 import com.demo.java.model.Car;
 import com.demo.java.model.Regex;
 import com.demo.java.utils.SpringContextUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
 
 import java.util.Map;
@@ -43,8 +44,9 @@ public class CarCrawler extends BreadthCrawler {
             JSONObject jsonVal = (JSONObject) entry.getValue();
             int type = jsonVal.getInteger("type");
             String select = jsonVal.getString("select");
+            if (StringUtils.isBlank(select)) continue;
             String val = doc.select(select).text();
-            if (type == 2) {
+            if (type == 1) {
                 String split = jsonVal.getString("split");
                 int index = jsonVal.getInteger("index");
                 String[] valArr = val.split("\\" + split);

@@ -6,8 +6,6 @@ import com.demo.java.collector.fetcher.Executor;
 import com.demo.java.collector.model.CrawlDatum;
 import com.demo.java.collector.model.CrawlDatums;
 import com.demo.java.collector.plugin.berkeley.BerkeleyDBManager;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -20,7 +18,7 @@ import java.util.List;
 public class DemoSelenium {
 
     static {
-        Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
+//        Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
     }
 
     public static void main(String[] args) throws Exception {
