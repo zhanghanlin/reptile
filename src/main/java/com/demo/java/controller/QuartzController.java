@@ -30,9 +30,9 @@ public class QuartzController {
         return new ModelAndView("quartzInput", "regexId", regexId);
     }
 
-    @RequestMapping("add")
+    @RequestMapping("save")
     @ResponseBody
-    public String add(ScheduleJob job) {
+    public String save(ScheduleJob job) {
         try {
             job.setUpdateTime(new Date());
             job.setCreateTime(new Date());

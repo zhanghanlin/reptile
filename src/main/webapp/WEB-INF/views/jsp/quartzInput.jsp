@@ -31,7 +31,7 @@
         <jsp:directive.include file="common/left.html"/>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Dashboard</h1>
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="/quartz/save" method="post">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">名称</label>
                     <div class="col-sm-10">
@@ -131,7 +131,7 @@
         $.ajax({
             cache: true,
             type: "POST",
-            url: '/quartz/add',
+            url: '/quartz/save',
             data: $('.form-horizontal').serialize(),
             async: false,
             error: function () {

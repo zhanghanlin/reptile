@@ -1,11 +1,12 @@
 package com.demo.java.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.demo.java.model.Car;
 import com.demo.java.model.Regex;
 import com.demo.java.service.RegexService;
 import com.demo.java.utils.ReflectUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,15 +21,35 @@ public class RegexController {
     @Resource
     RegexService regexService;
 
-    @RequestMapping("/input")
-    public ModelAndView input() {
-        List<String> list = ReflectUtils.getFields(Car.class);
-        list.remove("id");  //id为根据URL获取
+    @RequestMapping("/input/{id}")
+    public ModelAndView input(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("regexInput");
-        modelAndView.addObject("list", list);
+        Regex regex = new Regex();
+        JSONObject data = new JSONObject();
+        if (!id.equals("0")) {
+            regex = regexService.get(id);
+            data = regex.getJSONData();
+        } else {
+            List<String> list = ReflectUtils.getFields(Car.class);
+            list.remove("id");
+            for (String s : list) {
+                data.put(s, null);
+            }
+        }
+        modelAndView.addObject("regex", regex);
+        modelAndView.addObject("data", data);
         return modelAndView;
     }
 
+    @RequestMapping("/delete/{id}")
+    public String delete(@PathVariable String id) {
+        try {
+            regexService.remove(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "regexList";
+    }
 
     @RequestMapping("/save")
     public String save(Regex regex) {
@@ -38,7 +59,7 @@ public class RegexController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "regexList";
+        return "redirect:/regex/list";
     }
 
     @RequestMapping("/list")
@@ -47,9 +68,5 @@ public class RegexController {
         ModelAndView modelAndView = new ModelAndView("regexList");
         modelAndView.addObject("list", list);
         return modelAndView;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(StringEscapeUtils.unescapeHtml4("{&quot;kilometre&quot;:{&quot;index&quot;:&quot;2&quot;,&quot;select&quot;:&quot;#content_sumary_right h2&quot;,&quot;split&quot;:&quot;|&quot;,&quot;type&quot;:&quot;2&quot;},&quot;litre&quot;:{&quot;index&quot;:&quot;3&quot;,&quot;select&quot;:&quot;#content_sumary_right h2&quot;,&quot;split&quot;:&quot;|&quot;,&quot;type&quot;:&quot;2&quot;},&quot;title&quot;:{&quot;index&quot;:&quot;&quot;,&quot;select&quot;:&quot;#content_sumary_right h1&quot;,&quot;split&quot;:&quot;&quot;,&quot;type&quot;:&quot;1&quot;},&quot;price&quot;:{&quot;index&quot;:&quot;&quot;,&quot;select&quot;:&quot;.font_jiage&quot;,&quot;split&quot;:&quot;&quot;,&quot;type&quot;:&quot;1&quot;},&quot;year&quot;:{&quot;index&quot;:&quot;1&quot;,&quot;select&quot;:&quot;#content_sumary_right h2&quot;,&quot;split&quot;:&quot;|&quot;,&quot;type&quot;:&quot;2&quot;},&quot;type&quot;:{&quot;index&quot;:&quot;4&quot;,&quot;select&quot;:&quot;#content_sumary_right h2&quot;,&quot;split&quot;:&quot;|&quot;,&quot;type&quot;:&quot;2&quot;}}"));
     }
 }

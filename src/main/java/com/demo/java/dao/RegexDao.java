@@ -37,4 +37,9 @@ public class RegexDao {
         String sql = "SELECT * FROM REGEX";
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Regex.class));
     }
+
+    public int remove(String id) {
+        String sql = "DELETE FROM REGEX WHERE ID = ?";
+        return jdbcTemplate.update(sql, new Object[]{id});
+    }
 }

@@ -24,4 +24,8 @@ public class RegexService {
     public List<Regex> list() {
         return regexDao.list();
     }
+
+    public int remove(String id) {
+        return regexDao.remove(id);
+    }
 }

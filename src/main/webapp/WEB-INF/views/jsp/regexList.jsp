@@ -55,7 +55,11 @@
                                 <%--</c:forEach>--%>
                                 <%--</td>--%>
                             <td>
+                                <a class="btn btn-default btn-xs"
+                                   role="button" href="/regex/input/${item.id}">编辑</a>
                                 <button class="btn btn-default btn-xs fetcher">爬取</button>
+                                <a class="btn btn-default btn-xs"
+                                   role="button" href="/regex/delete/${item.id}">删除</a>
                                 <a class="btn btn-default btn-xs"
                                    role="button" href="/quartz/input?regexId=${item.id}">部署定时</a>
                             </td>
