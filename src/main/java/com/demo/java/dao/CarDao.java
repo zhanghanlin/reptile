@@ -18,7 +18,7 @@ public class CarDao {
             "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,create_time,url)" +
             " values(?,?,?,?,?,?,?,?,?,?,?,NOW(),?)";
     static String update_sql = "UPDATE CAR SET car_name=?,price=?,on_time=?" +
-            ",mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?,user_name=?,phone=?,create_time=NOW(),url=?";
+            ",mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?,user_name=?,phone=?,create_time=NOW(),url=? WHERE id=?";
 
     public int saveOrUpdate(Car car) {
         if (get(car.getId()) != null) {
@@ -53,7 +53,8 @@ public class CarDao {
                 car.getAccident(),
                 car.getUserName(),
                 car.getPhone(),
-                car.getUrl()
+                car.getUrl(),
+                car.getId()
         });
     }
 
