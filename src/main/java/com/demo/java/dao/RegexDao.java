@@ -22,14 +22,27 @@ public class RegexDao {
         return list.get(0);
     }
 
-    public void save(Regex regex) {
-        String sql = "INSERT INTO REGEX(id,seed,regex,start,thread,data) values(?,?,?,?,?,?)";
-        jdbcTemplate.update(sql, new Object[]{regex.getId()
-                , regex.getSeed()
-                , regex.getRegex()
-                , regex.getStart()
-                , regex.getThread()
-                , regex.getData()
+    public int save(Regex regex) {
+        String sql = "INSERT INTO REGEX(id,seed,regex,start,thread,data,create_time,update_time) values(?,?,?,?,?,?,NOW(),NOW())";
+        return jdbcTemplate.update(sql, new Object[]{regex.getId(),
+                regex.getSeed(),
+                regex.getRegex(),
+                regex.getStart(),
+                regex.getThread(),
+                regex.getData()
+        });
+    }
+
+
+    public int update(Regex regex) {
+        String sql = "UPDATE REGEX SET seed=?,regex=?,start=?,thread=?,data=?,update_time=NOW() WHERE id=?";
+        return jdbcTemplate.update(sql, new Object[]{
+                regex.getSeed(),
+                regex.getRegex(),
+                regex.getStart(),
+                regex.getThread(),
+                regex.getData(),
+                regex.getId()
         });
     }
 

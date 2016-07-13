@@ -32,6 +32,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Dashboard</h1>
             <form class="form-horizontal" action="/regex/save" method="post">
+                <input type="hidden" name="id" value="${regex.id}"/>
                 <div class="form-group">
                     <label for="seed" class="col-sm-2 control-label">种子地址</label>
                     <div class="col-sm-10">
@@ -63,26 +64,15 @@
                 <input type="hidden" name="data" id="data"/>
                 <c:forEach var="item" items="${data.entrySet()}" varStatus="status">
                     <div class="form-group col-data">
-                        <label for="${item.key}" class="col-sm-2 control-label">${item.key}</label>
+                        <label for="${item.key}" class="col-sm-2 control-label">${item.value.get('name')}</label>
                         <div class="col-sm-10">
-                            <div class="col-md-3">
-                                <input type="text" class="form-control col_select" id="${item.key}"
-                                      value="${item.value.get('select')}" placeholder="${item.key}">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control col_dom" id="${item.key}"
+                                       value="${item.value.get('dom')}" placeholder="${item.value.get('name')}">
                             </div>
-                            <div class="col-md-3">
-                                <c:set var="type" value="${item.value.get('type')}"/>
-                                <select class="form-control col_type">
-                                    <option value="0" <c:if test="${type == '0'}">selected</c:if>>无需处理</option>
-                                    <option value="1" <c:if test="${type == '1'}">selected</c:if>>分割处理</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" value="${item.value.get('split')}" class="form-control col_split"
-                                       placeholder="分隔符"/>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <input type="text" value="${item.value.get('index')}" class="form-control col_index"
-                                       placeholder="分割后取第几位"/>
+                                       placeholder="元素位置(从0开始)"/>
                             </div>
                         </div>
                     </div>
@@ -100,35 +90,19 @@
 <script src="/js/bootstrap/bootstrap.min.js"></script>
 <script src="/js/ie/ie10-viewport-bug-workaround.js"></script>
 <script>
-    $('#submit').click(function () {
+    $(".form-horizontal").submit(function () {
         var data = {};
         $.each($('.col-data'), function (i, o) {
-            var key = $(o).find('label').text();
-            var type = $(o).find('.col_type').val();
-            var split = $(o).find('.col_split').val();
+            var key = $(o).find('label').attr('for');
             var index = $(o).find('.col_index').val();
-            var select = $(o).find('.col_select').val();
+            var dom = $(o).find('.col_dom').val();
             var ele = {};
-            ele["select"] = select;
-            ele["type"] = type;
-            ele["split"] = split;
+            ele["dom"] = dom;
             ele["index"] = index;
             data[key] = ele;
         });
         $('#data').val(JSON.stringify(data));
-        $.ajax({
-            cache: true,
-            type: "POST",
-            url: '/regex/save',
-            data: $('.form-horizontal').serialize(),
-            async: false,
-            error: function () {
-                alert("Connection error");
-            },
-            success: function () {
-                alert("OK");
-            }
-        });
+        return true;
     });
 </script>
 </body>

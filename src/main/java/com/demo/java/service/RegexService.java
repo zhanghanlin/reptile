@@ -17,8 +17,12 @@ public class RegexService {
         return regexDao.get(id);
     }
 
-    public void save(Regex regex) throws Exception {
-        regexDao.save(regex);
+    public int save(Regex regex) throws Exception {
+        return regexDao.save(regex);
+    }
+
+    public int update(Regex regex) {
+        return regexDao.update(regex);
     }
 
     public List<Regex> list() {

@@ -39,6 +39,7 @@
                         <th>Regex</th>
                         <th>深度</th>
                         <th>线程数</th>
+                        <th>更新时间</th>
                         <th>#</th>
                     </tr>
                     </thead>
@@ -49,11 +50,7 @@
                             <td>${item.regex}</td>
                             <td>${item.start}</td>
                             <td>${item.thread}</td>
-                                <%--<td>--%>
-                                <%--<c:forEach var="col" items="${item.getJSONData().entrySet()}">--%>
-                                <%--${col.key}:<c:out value="${col.value}"/>--%>
-                                <%--</c:forEach>--%>
-                                <%--</td>--%>
+                            <td>${item.updateTime}</td>
                             <td>
                                 <a class="btn btn-default btn-xs"
                                    role="button" href="/regex/input/${item.id}">编辑</a>

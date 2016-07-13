@@ -124,23 +124,10 @@
 <script src="/js/bootstrap/bootstrap.min.js"></script>
 <script src="/js/ie/ie10-viewport-bug-workaround.js"></script>
 <script>
-    $('#submit').click(function () {
+    $(".form-horizontal").submit(function () {
         $('#cronExpression').val($('input.cron').map(function () {
             return $(this).val();
         }).get().join(" "));
-        $.ajax({
-            cache: true,
-            type: "POST",
-            url: '/quartz/save',
-            data: $('.form-horizontal').serialize(),
-            async: false,
-            error: function () {
-                alert("Connection error");
-            },
-            success: function () {
-                alert("OK");
-            }
-        });
     });
 </script>
 </body>

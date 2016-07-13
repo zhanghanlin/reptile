@@ -42,25 +42,20 @@ public class CarCrawler extends BreadthCrawler {
         for (Map.Entry<String, Object> entry : json.entrySet()) {
             if (entry.getKey().equals("id")) continue;
             JSONObject jsonVal = (JSONObject) entry.getValue();
-            int type = jsonVal.getInteger("type");
-            String select = jsonVal.getString("select");
-            if (StringUtils.isBlank(select)) continue;
-            String val = doc.select(select).text();
-            if (type == 1) {
-                String split = jsonVal.getString("split");
-                int index = jsonVal.getInteger("index");
-                String[] valArr = val.split("\\" + split);
-                if (valArr.length > index - 1) {
-                    val = valArr[index - 1].trim();
-                } else {
-                    val = "";
-                }
+            String dom = jsonVal.getString("dom");
+            Integer index = jsonVal.getInteger("index");
+            if (index == null) {
+                index = 0;
             }
+            if (StringUtils.isBlank(dom)) continue;
+            String val = doc.select(dom).eq(index).text();
             object.put(entry.getKey(), val);
         }
         Car car = JSON.toJavaObject(object, Car.class);
-        if (car != null) {
-            car.setId(patternId(page.getUrl()));
+        if (car != null && StringUtils.isNoneBlank(car.getCarName())) {
+            String url = page.getUrl();
+            car.setId(patternId(url));
+            car.setUrl(url);
             carDao.saveOrUpdate(car);
         }
     }
