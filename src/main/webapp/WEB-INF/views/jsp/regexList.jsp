@@ -37,9 +37,9 @@
                     <tr>
                         <th>Seed</th>
                         <th>Regex</th>
-                        <th>深度</th>
-                        <th>线程数</th>
-                        <th>更新时间</th>
+                        <th style="width: 50px;">深度</th>
+                        <th style="width: 60px;">线程数</th>
+                        <th style="width: 95px;">更新时间</th>
                         <th>#</th>
                     </tr>
                     </thead>
