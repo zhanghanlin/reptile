@@ -53,10 +53,11 @@
 <script src="/js/ie/ie10-viewport-bug-workaround.js"></script>
 <script>
     $('#myButton').click(function () {
-        if ($(this).is(':disabled')) {
+        var _this = $(this);
+        if (_this.is(':disabled')) {
             return;
         }
-        $(this).button('loading');
+        _this.button('loading');
         $.ajax({
             type: "GET",
             url: '/fetcher/car58',
@@ -72,7 +73,7 @@
                     });
                     $('table tbody').html(html);
                 }
-                $(this).button('reset');
+                _this.button('reset');
             }
         });
     });
