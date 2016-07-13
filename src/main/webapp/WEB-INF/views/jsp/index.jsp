@@ -31,11 +31,51 @@
         <jsp:directive.include file="common/left.html"/>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Dashboard</h1>
+            <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary"
+                    autocomplete="off">
+                获取58登陆发布数据
+            </button>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 <script src="/js/jquery/jquery.min.js"></script>
 <script src="/js/bootstrap/bootstrap.min.js"></script>
 <script src="/js/ie/ie10-viewport-bug-workaround.js"></script>
+<script>
+    $('#myButton').click(function () {
+        if ($(this).is(':disabled')) {
+            return;
+        }
+        $(this).button('loading');
+        $.ajax({
+            type: "GET",
+            url: '/fetcher/car58',
+            dataType: 'JSON',
+            error: function () {
+                alert("Connection error");
+            },
+            success: function (data) {
+                var html = '';
+                if (data) {
+                    $.each(data, function (i, o) {
+                        html += '<tr><td>' + o + '<td></tr>';
+                    });
+                    $('table tbody').html(html);
+                }
+                $(this).button('reset');
+            }
+        });
+    });
+</script>
 </body>
 </html>

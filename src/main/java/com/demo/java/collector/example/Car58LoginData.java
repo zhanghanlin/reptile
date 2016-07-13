@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -25,7 +26,7 @@ public class Car58LoginData {
         ((Jdk14Logger) LogFactory.getLog("com.gargoylesoftware.htmlunit")).getLogger().setLevel(Level.OFF);
     }
 
-    public static List<String> titles;
+    public static List<String> titles = new ArrayList<>();
     private static String userName;
     private static String password;
 
