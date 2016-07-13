@@ -20,14 +20,6 @@ public class CarDao {
     static String update_sql = "UPDATE CAR SET car_name=?,price=?,on_time=?" +
             ",mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?,user_name=?,phone=?,create_time=NOW(),url=? WHERE id=?";
 
-    public int saveOrUpdate(Car car) {
-        if (get(car.getId()) != null) {
-            return update(car);
-        } else {
-            return save(car);
-        }
-    }
-
     public Car get(String id) {
         String sql = "SELECT * FROM CAR WHERE ID = ?";
         List<Car> list = jdbcTemplate.query(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(Car.class));
@@ -78,5 +70,9 @@ public class CarDao {
                 car.getPhone(),
                 car.getUrl()
         });
+    }
+
+    public List<Car> list() {
+        return jdbcTemplate.query("SELECT * FROM CAR", BeanPropertyRowMapper.newInstance(Car.class));
     }
 }

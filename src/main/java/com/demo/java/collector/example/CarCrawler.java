@@ -5,9 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.demo.java.collector.model.CrawlDatums;
 import com.demo.java.collector.model.Page;
 import com.demo.java.collector.plugin.berkeley.BreadthCrawler;
-import com.demo.java.dao.CarDao;
 import com.demo.java.model.Car;
 import com.demo.java.model.Regex;
+import com.demo.java.service.CarService;
 import com.demo.java.utils.SpringContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
@@ -20,7 +20,7 @@ public class CarCrawler extends BreadthCrawler {
 
     private static JSONObject json;
 
-    CarDao carDao = (CarDao) SpringContextUtil.getBean("carDao");
+    CarService carService = (CarService) SpringContextUtil.getBean("carService");
 
     /**
      * 构造一个基于伯克利DB的爬虫
@@ -56,7 +56,7 @@ public class CarCrawler extends BreadthCrawler {
             String url = page.getUrl();
             car.setId(patternId(url));
             car.setUrl(url);
-            carDao.saveOrUpdate(car);
+            carService.saveOrUpdate(car);
         }
     }
 
