@@ -52,7 +52,7 @@
                             <td>${item.price}</td>
                             <td>${item.onTime}</td>
                             <td>${item.mileage}</td>
-                            <td>${item.user}</td>
+                            <td>${item.userName}</td>
                             <td>${item.phone}</td>
                             <td>${item.createTime}</td>
                             <td><a href="${item.url}" target="_blank">URL</a></td>
