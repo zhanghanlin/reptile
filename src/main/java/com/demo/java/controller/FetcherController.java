@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 @RequestMapping("fetcher")
@@ -30,13 +31,13 @@ public class FetcherController {
 
     @RequestMapping("/car58")
     @ResponseBody
-    public String car58(){
+    public List<String> car58(){
         try {
             Car58LoginData.getCarLoginInfo("username","password");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "后台爬取中...";
+        return Car58LoginData.titles;
     }
 
     class FetcherThread extends Thread {

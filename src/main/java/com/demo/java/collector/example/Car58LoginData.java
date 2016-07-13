@@ -25,6 +25,7 @@ public class Car58LoginData {
         ((Jdk14Logger) LogFactory.getLog("com.gargoylesoftware.htmlunit")).getLogger().setLevel(Level.OFF);
     }
 
+    public static List<String> titles;
     private static String userName;
     private static String password;
 
@@ -50,7 +51,7 @@ public class Car58LoginData {
                 for (WebElement we : tr) {
                     String title = we.findElement(By.className("my-item-item-content-left-title"))
                             .findElement(By.tagName("span")).getText();
-                    System.out.println(title);
+                    titles.add(title);
                 }
 //                WebElement li = element.findElement(By.xpath("//li[@class='current']"));
 //                String name = li.findElement(By.xpath("//li[@class='current']//span")).getText();
