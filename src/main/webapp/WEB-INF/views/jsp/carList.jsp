@@ -46,6 +46,9 @@
                         <th style="width: 50px;">价格/万</th>
                         <th style="width: 60px;">上牌时间</th>
                         <th style="width: 70px;">里程/万km</th>
+                        <th>年检到期</th>
+                        <th>保险到期</th>
+                        <th>事故</th>
                         <th style="width: 50px;">发布人</th>
                         <th>电话</th>
                         <th>地址</th>
@@ -55,7 +58,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td colspan="9">Loading data from server</td>
+                        <td colspan="12">Loading data from server</td>
                     </tr>
                     </tbody>
                 </table>
@@ -89,6 +92,9 @@
             {data: 'price'},
             {data: 'onTime'},
             {data: 'mileage'},
+            {data: 'inspectExpire'},
+            {data: 'safeExpire'},
+            {data: 'accident'},
             {data: 'userName'},
             {data: 'phone'},
             {data: 'address'},
