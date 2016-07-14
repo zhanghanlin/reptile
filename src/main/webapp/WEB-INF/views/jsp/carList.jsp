@@ -46,8 +46,8 @@
                         <th style="width: 50px;">价格/万</th>
                         <th style="width: 60px;">上牌时间</th>
                         <th style="width: 70px;">里程/万km</th>
-                        <th>年检到期</th>
-                        <th>保险到期</th>
+                        <th style="width: 60px;">年检到期</th>
+                        <th style="width: 60px;">保险到期</th>
                         <th>事故</th>
                         <th style="width: 50px;">发布人</th>
                         <th>电话</th>
@@ -106,10 +106,10 @@
         fnRowCallback: function (nRow, aData) {
             $(nRow).attr('id', aData['id']);
             $('td:eq(0)', nRow).attr("title", aData['carName']);
-            $('td:eq(5)', nRow).attr("title", aData['phone']);
-            $('td:eq(6)', nRow).attr("title", aData['address']);
+            $('td:eq(8)', nRow).attr("title", aData['phone']);
+            $('td:eq(9)', nRow).attr("title", aData['address']);
 //            $('td:eq(7)', nRow).html(formatDate(aData['createTime']));
-            $('td:eq(7)', nRow).html('<a href="' + aData['url'] + '" target="_blank">查看</a>')
+            $('td:eq(10)', nRow).html('<a href="' + aData['url'] + '" target="_blank">查看</a>')
         }
     });
 
