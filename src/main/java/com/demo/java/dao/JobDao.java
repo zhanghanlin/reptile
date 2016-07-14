@@ -14,8 +14,8 @@ public class JobDao {
     @Resource
     JdbcTemplate jdbcTemplate;
 
-    static String insert_sql = "INSERT INTO JOB(id,name,job_group,status,cron,description,bean_class,method_name,method_param,create_time,update_time)" +
-            " values(?,?,?,?,?,?,?,?,?,NOW(),NOW())";
+    static String insert_sql = "INSERT INTO JOB(id,name,job_group,status,cron,description,bean_class,method_name,method_param)" +
+            " values(?,?,?,?,?,?,?,?,?)";
 
     public ScheduleJob get(String id) {
         String sql = "SELECT * FROM JOB WHERE ID = ?";

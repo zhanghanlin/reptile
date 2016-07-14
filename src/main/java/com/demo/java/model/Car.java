@@ -16,6 +16,7 @@ public class Car {
     private String phone;   //联系方式
 
     private Date createTime;    //抓取时间
+    private Date updateTime;    //更新时间
     private String url;     //原始URL
 
     public String getId() {
@@ -114,6 +115,14 @@ public class Car {
         this.createTime = createTime;
     }
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -137,6 +146,7 @@ public class Car {
                 ", userName='" + userName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 ", url='" + url + '\'' +
                 '}';
     }

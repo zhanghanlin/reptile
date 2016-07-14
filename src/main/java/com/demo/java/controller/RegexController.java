@@ -36,6 +36,7 @@ public class RegexController {
             List<String> list = ReflectUtils.getFields(Car.class);
             list.remove("id");
             list.remove("createTime");
+            list.remove("updateTime");
             list.remove("url");
             for (String s : list) {
                 data.put(s, null);

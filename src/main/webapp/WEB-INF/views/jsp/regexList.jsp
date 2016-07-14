@@ -48,7 +48,7 @@
                     <c:forEach var="item" items="${list}" varStatus="status">
                         <tr id="${item.id}">
                             <td>${item.name}</td>
-                            <td><a href="${item.seed}">查看</a></td>
+                            <td><a href="${item.seed}" target="_blank">查看</a></td>
                             <td>${item.regex}</td>
                             <td>${item.start}</td>
                             <td>${item.thread}</td>

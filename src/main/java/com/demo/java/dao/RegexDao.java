@@ -23,7 +23,7 @@ public class RegexDao {
     }
 
     public int save(Regex regex) {
-        String sql = "INSERT INTO REGEX(id,name,seed,regex,start,thread,data,create_time,update_time) values(?,?,?,?,?,?,NOW(),NOW())";
+        String sql = "INSERT INTO REGEX(id,name,seed,regex,start,thread,data) values(?,?,?,?,?,?,?)";
         return jdbcTemplate.update(sql, new Object[]{regex.getId(),
                 regex.getName(),
                 regex.getSeed(),

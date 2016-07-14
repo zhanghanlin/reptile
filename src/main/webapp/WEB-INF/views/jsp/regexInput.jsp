@@ -37,7 +37,7 @@
                     <label for="name" class="col-sm-2 control-label">名称</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" value="${regex.name}" name="name" id="name"
-                               placeholder="seed">
+                               placeholder="name">
                     </div>
                 </div>
                 <div class="form-group">

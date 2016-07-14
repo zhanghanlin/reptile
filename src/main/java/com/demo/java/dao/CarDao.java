@@ -15,10 +15,10 @@ public class CarDao {
     JdbcTemplate jdbcTemplate;
 
     static String insert_sql = "INSERT INTO CAR(id,car_name,price,on_time," +
-            "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,create_time,url)" +
+            "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,url)" +
             " values(?,?,?,?,?,?,?,?,?,?,?,NOW(),?)";
     static String update_sql = "UPDATE CAR SET car_name=?,price=?,on_time=?" +
-            ",mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?,user_name=?,phone=?,create_time=NOW(),url=? WHERE id=?";
+            ",mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?,user_name=?,phone=?,url=?,update_time=NOW() WHERE id=?";
 
     public Car get(String id) {
         String sql = "SELECT * FROM CAR WHERE ID = ?";
