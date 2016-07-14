@@ -43,32 +43,35 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Dashboard</h1>
             <div class="table-responsive">
-                <table class="table table-striped" style="table-layout:fixed">
+                <table id="search" class="table table-striped" style="table-layout:fixed">
                     <thead>
                     <tr>
                         <th>名称</th>
                         <th style="width: 70px;">价格(万)</th>
                         <th style="width: 100px;">上牌时间</th>
                         <th style="width: 100px;">里程数</th>
-                        <th style="width: 85px;">联系人</th>
+                        <th style="width: 100px;">联系人</th>
                         <th style="width: 120px;">电话</th>
                         <th style="width: 160px;">时间</th>
                         <th style="width: 50px;">来源</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="item" items="${list}" varStatus="status">
-                        <tr id="${item.id}">
-                            <td class="ellipsis title" title="${item.carName}">${item.carName}</td>
-                            <td>${item.price}</td>
-                            <td>${item.onTime}</td>
-                            <td>${item.mileage}</td>
-                            <td>${item.userName}</td>
-                            <td class="ellipsis" title="${item.phone}">${item.phone}</td>
-                            <td>${item.createTime}</td>
-                            <td><a href="${item.url}" target="_blank">查看</a></td>
-                        </tr>
-                    </c:forEach>
+                    <tr>
+                        <td colspan="8">Loading data from server</td>
+                    </tr>
+                    <%--<c:forEach var="item" items="${list}" varStatus="status">--%>
+                    <%--<tr id="${item.id}">--%>
+                    <%--<td class="ellipsis title" title="${item.carName}">${item.carName}</td>--%>
+                    <%--<td>${item.price}</td>--%>
+                    <%--<td>${item.onTime}</td>--%>
+                    <%--<td>${item.mileage}</td>--%>
+                    <%--<td>${item.userName}</td>--%>
+                    <%--<td class="ellipsis" title="${item.phone}">${item.phone}</td>--%>
+                    <%--<td>${item.createTime}</td>--%>
+                    <%--<td><a href="${item.url}" target="_blank">查看</a></td>--%>
+                    <%--</tr>--%>
+                    <%--</c:forEach>--%>
                     </tbody>
                 </table>
             </div>
@@ -77,5 +80,46 @@
 </div>
 <script src="/js/jquery/jquery.min.js"></script>
 <script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery/jquery.dataTables.min.js"></script>
+<script src="/js/bootstrap/dataTables.bootstrap.min.js"></script>
+<script>
+    $('#search').DataTable({
+        bPaginate: true,// 分页按钮
+        lengthChange: true,  //修改每页数量
+        info: true,   //显示数据信息 第几页,总共几页等等
+        autoWidth: false, //是否固定宽度
+        bProcessing: false,    //服务器等等提示
+        bServerSide: true, //表示从服务器获取
+        lengthMenu: [[10, 15, 25, 50], [10, 15, 25, 50]],    //每页数据管理
+        bDestroy: true,
+        bSortCellsTop: true,
+        bSortClasses: true,
+        ajax: {
+            url: '/car/api/list'
+        },
+        columns: [
+            {data: 'carName'},
+            {data: 'price'},
+            {data: 'onTime'},
+            {data: 'mileage'},
+            {data: 'userName'},
+            {data: 'phone'},
+            {data: 'createTime'},
+            {data: 'url'}
+        ],
+        select: true,
+        language: {
+            url: '/json/dataTable.oLanguage.json'
+        },
+        fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            $('td:eq(0)', nRow).attr("title", aData['carName']);
+            $('td:eq(0)', nRow).addClass('ellipsis').addClass('title');
+            $('td:eq(5)', nRow).attr("title", aData['phone']);
+            $('td:eq(5)', nRow).addClass('ellipsis');
+            $('td:eq(6)', nRow).html(new Date(aData['createTime']).toLocaleString().replace(/:\d{1,2}$/, ' '))
+            $('td:eq(7)', nRow).html('<a href="' + aData['url'] + '" target="_blank">查看</a>')
+        }
+    });
+</script>
 </body>
 </html>

@@ -75,4 +75,29 @@ public class CarDao {
     public List<Car> list() {
         return jdbcTemplate.query("SELECT * FROM CAR", BeanPropertyRowMapper.newInstance(Car.class));
     }
+
+    /**
+     * 分页查询
+     *
+     * @param start
+     * @param size
+     * @return
+     */
+    public List<Car> listByPage(int start, int size) {
+        String sql = "SELECT * FROM CAR LIMIT ?,?";
+        List<Car> list = jdbcTemplate.query(sql,
+                new Object[]{start, size},
+                BeanPropertyRowMapper.newInstance(Car.class));
+        return list;
+    }
+
+    /**
+     * 返回总行数量
+     *
+     * @return
+     */
+    public int getTotalCount() {
+        String sql = "SELECT COUNT(ID) FROM CAR";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
 }

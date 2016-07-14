@@ -2,6 +2,7 @@ package com.demo.java.service;
 
 import com.demo.java.dao.CarDao;
 import com.demo.java.model.Car;
+import com.demo.java.vo.TablePage;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,7 +34,9 @@ public class CarService {
         return carDao.save(car);
     }
 
-    public int update(Car car) {
-        return carDao.update(car);
+    public TablePage<Car> listByPage(int start, int size) {
+        List<Car> list = carDao.listByPage(start, size);
+        int total = carDao.getTotalCount();
+        return new TablePage<>(1, total, total, list);
     }
 }
