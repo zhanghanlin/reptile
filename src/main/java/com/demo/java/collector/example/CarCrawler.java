@@ -74,7 +74,7 @@ public class CarCrawler extends BreadthCrawler {
     }
 
     public static void start(String seed, String regex, int start, int threads) throws Exception {
-        CarCrawler crawler = new CarCrawler("esc58", true);
+        CarCrawler crawler = new CarCrawler("crawler", true);
         crawler.addSeed(seed);
         crawler.addRegex(regex);
         crawler.setThreads(threads);
