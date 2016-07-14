@@ -112,7 +112,7 @@
 
     function formatDate(timestamp) {
         var now = new Date(timestamp);
-        var year = now.getYear();
+        var year = now.getFullYear();
         var month = now.getMonth() + 1;
         var date = now.getDate();
         var hour = now.getHours();
