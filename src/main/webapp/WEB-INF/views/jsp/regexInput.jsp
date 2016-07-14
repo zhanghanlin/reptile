@@ -69,21 +69,35 @@
                     </div>
                 </div>
                 <input type="hidden" name="data" id="data"/>
-                <c:forEach var="item" items="${data.entrySet()}" varStatus="status">
-                    <div class="form-group col-data">
-                        <label for="${item.key}" class="col-sm-2 control-label">${item.value.get('name')}</label>
-                        <div class="col-sm-10">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control col_dom" id="${item.key}"
-                                       value="${item.value.get('dom')}" placeholder="${item.value.get('name')}">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" value="${item.value.get('index')}" class="form-control col_index"
-                                       placeholder="元素位置(从0开始)"/>
-                            </div>
+                <div class="form-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                字段CSS选择器设置
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <c:forEach var="item" items="${data.entrySet()}" varStatus="status">
+                                <div class="form-group col-data">
+                                    <label for="${item.key}"
+                                           class="col-sm-2 control-label">${item.value.get('name')}</label>
+                                    <div class="col-sm-10">
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control col_dom" id="${item.key}"
+                                                   value="${item.value.get('dom')}"
+                                                   placeholder="${item.value.get('name')}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" value="${item.value.get('index')}"
+                                                   class="form-control col_index"
+                                                   placeholder="元素位置(从0开始)"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
-                </c:forEach>
+                </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button class="btn btn-default" id="submit">保存</button>

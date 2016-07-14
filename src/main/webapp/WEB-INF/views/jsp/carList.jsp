@@ -22,15 +22,12 @@
     <script src="/js/html5shiv/html5shiv.min.js"></script>
     <script src="/js/respond/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="/css/dataTables.bootstrap.css">
     <style>
-        .ellipsis {
+        td {
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-        }
-
-        .title {
-            width: 300px;
         }
     </style>
 </head>
@@ -46,18 +43,19 @@
                     <thead>
                     <tr>
                         <th>名称</th>
-                        <th style="width: 70px;">价格(万)</th>
-                        <th style="width: 100px;">上牌时间</th>
-                        <th style="width: 100px;">里程数</th>
-                        <th style="width: 100px;">联系人</th>
-                        <th style="width: 120px;">电话</th>
-                        <th style="width: 160px;">时间</th>
-                        <th style="width: 50px;">来源</th>
+                        <th style="width: 55px;">价格(万)</th>
+                        <th style="width: 60px;">上牌时间</th>
+                        <th style="width: 60px;">里程数</th>
+                        <th style="width: 50px;">发布人</th>
+                        <th>电话</th>
+                        <th>地址</th>
+                        <th style="width: 110px;">时间</th>
+                        <th style="width: 30px;">来源</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td colspan="8">Loading data from server</td>
+                        <td colspan="9">Loading data from server</td>
                     </tr>
                     </tbody>
                 </table>
@@ -93,6 +91,7 @@
             {data: 'mileage'},
             {data: 'userName'},
             {data: 'phone'},
+            {data: 'address'},
             {data: 'createTime'},
             {data: 'url'}
         ],
@@ -100,13 +99,12 @@
         language: {
             url: '/json/dataTable.oLanguage.json'
         },
-        fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+        fnRowCallback: function (nRow, aData) {
             $('td:eq(0)', nRow).attr("title", aData['carName']);
-            $('td:eq(0)', nRow).addClass('ellipsis').addClass('title');
             $('td:eq(5)', nRow).attr("title", aData['phone']);
-            $('td:eq(5)', nRow).addClass('ellipsis');
-            $('td:eq(6)', nRow).html(formatDate(aData['createTime']));
-            $('td:eq(7)', nRow).html('<a href="' + aData['url'] + '" target="_blank">查看</a>')
+            $('td:eq(6)', nRow).attr("title", aData['address']);
+            $('td:eq(7)', nRow).html(formatDate(aData['createTime']));
+            $('td:eq(8)', nRow).html('<a href="' + aData['url'] + '" target="_blank">查看</a>')
         }
     });
 

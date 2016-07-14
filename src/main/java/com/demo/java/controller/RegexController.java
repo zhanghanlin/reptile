@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -32,17 +31,13 @@ public class RegexController {
         if (!id.equals("0")) {
             regex = regexService.get(id);
             data = regex.getJSONData();
-        } else {
-            List<String> list = ReflectUtils.getFields(Car.class);
-            for (String s : list) {
-                data.put(s, null);
-            }
         }
-        for (Map.Entry<String, Object> entry : data.entrySet()) {
-            JSONObject object = (JSONObject) entry.getValue();
+        List<String> list = ReflectUtils.getFields(Car.class);
+        for (String s : list) {
+            JSONObject object = data.getJSONObject(s);
             if (object == null) object = new JSONObject();
-            object.put("name", CollectorDisc.map.get(entry.getKey()));
-            data.put(entry.getKey(), object);
+            object.put("name", CollectorDisc.map.get(s));
+            data.put(s, object);
         }
         modelAndView.addObject("regex", regex);
         modelAndView.addObject("data", data);

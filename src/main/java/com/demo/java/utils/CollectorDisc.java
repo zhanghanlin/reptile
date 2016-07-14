@@ -18,6 +18,7 @@ public class CollectorDisc {
         map.put("safeExpire","保险到期");
         map.put("accident","事故");
         map.put("userName","联系人");
-        map.put("phone","联系方式");
+        map.put("phone","电话");
+        map.put("address","地址");
     }
 }

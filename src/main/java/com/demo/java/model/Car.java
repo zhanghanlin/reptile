@@ -4,6 +4,8 @@ import com.demo.java.common.annotation.Ignore;
 
 import java.util.Date;
 
+import static com.demo.java.utils.Config.STRING_EMPTY;
+
 public class Car {
     @Ignore
     private String id;  //Id
@@ -17,6 +19,7 @@ public class Car {
     private String accident;    //事故
     private String userName;    //联系人
     private String phone;   //联系方式
+    private String address; //地址
     @Ignore
     private Date createTime;    //抓取时间
     @Ignore
@@ -136,6 +139,14 @@ public class Car {
         this.url = url;
     }
 
+    public String getAddress() {
+        return address == null ? STRING_EMPTY : address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -150,6 +161,7 @@ public class Car {
                 ", accident='" + accident + '\'' +
                 ", userName='" + userName + '\'' +
                 ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", url='" + url + '\'' +

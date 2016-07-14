@@ -15,10 +15,10 @@ public class CarDao {
     JdbcTemplate jdbcTemplate;
 
     static String insert_sql = "INSERT INTO CAR(id,car_name,price,on_time," +
-            "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,url)" +
-            " values(?,?,?,?,?,?,?,?,?,?,?,?)";
+            "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,url,address)" +
+            " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
     static String update_sql = "UPDATE CAR SET car_name=?,price=?,on_time=?" +
-            ",mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?,user_name=?,phone=?,url=?,update_time=NOW() WHERE id=?";
+            ",mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?,user_name=?,phone=?,url=?,address=?,update_time=NOW() WHERE id=?";
 
     public Car get(String id) {
         String sql = "SELECT * FROM CAR WHERE ID = ?";
@@ -46,6 +46,7 @@ public class CarDao {
                 car.getUserName(),
                 car.getPhone(),
                 car.getUrl(),
+                car.getAddress(),
                 car.getId()
         });
     }
@@ -68,7 +69,8 @@ public class CarDao {
                 car.getAccident(),
                 car.getUserName(),
                 car.getPhone(),
-                car.getUrl()
+                car.getUrl(),
+                car.getAddress()
         });
     }
 
