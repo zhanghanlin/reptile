@@ -43,9 +43,9 @@
                     <thead>
                     <tr>
                         <th>名称</th>
-                        <th style="width: 55px;">价格(万)</th>
+                        <th style="width: 50px;">价格/万</th>
                         <th style="width: 60px;">上牌时间</th>
-                        <th style="width: 60px;">里程数</th>
+                        <th style="width: 70px;">里程/万km</th>
                         <th style="width: 50px;">发布人</th>
                         <th>电话</th>
                         <th>地址</th>

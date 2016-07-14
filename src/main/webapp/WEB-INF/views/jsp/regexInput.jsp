@@ -77,20 +77,39 @@
                             </h3>
                         </div>
                         <div class="panel-body">
+                            <div class="form-group col-data">
+                                <div class="col-md-2" style="text-align: right;">
+                                    <div class="col-md-12">字段名</div>
+                                </div>
+                                <div class="col-sm-10">
+                                    <div class="col-md-4">CSS选择器</div>
+                                    <div class="col-md-4">CSS选中索引</div>
+                                    <div class="col-md-4">获取数据类型</div>
+                                </div>
+                            </div>
                             <c:forEach var="item" items="${data.entrySet()}" varStatus="status">
                                 <div class="form-group col-data">
                                     <label for="${item.key}"
                                            class="col-sm-2 control-label">${item.value.get('name')}</label>
                                     <div class="col-sm-10">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <input type="text" class="form-control col_dom" id="${item.key}"
                                                    value="${item.value.get('dom')}"
                                                    placeholder="${item.value.get('name')}">
                                         </div>
-                                        <div class="col-md-6">
-                                            <input type="text" value="${item.value.get('index')}"
-                                                   class="form-control col_index"
-                                                   placeholder="元素位置(从0开始)"/>
+                                        <div class="col-md-4">
+                                            <select class="form-control col_index"
+                                                    select="${item.value.get('index')}">
+                                                <c:forEach var="i" begin="0" end="9">
+                                                    <option value="${i}">${i}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control col_type" select="${item.value.get('type')}">
+                                                <option value="String">字符串</option>
+                                                <option value="Integer">数字</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -117,13 +136,19 @@
             var key = $(o).find('label').attr('for');
             var index = $(o).find('.col_index').val();
             var dom = $(o).find('.col_dom').val();
+            var type = $(o).find('.col_type').val();
             var ele = {};
             ele["dom"] = dom;
             ele["index"] = index;
+            ele["type"] = type;
             data[key] = ele;
         });
         $('#data').val(JSON.stringify(data));
         return true;
+    });
+    $.each($('.panel-body select'), function (i, o) {
+        var val = $(o).attr('select');
+        $(o).find('option[value="' + val + '"]').prop('selected', true)
     });
 </script>
 </body>

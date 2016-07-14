@@ -8,13 +8,12 @@ import com.demo.java.collector.plugin.berkeley.BreadthCrawler;
 import com.demo.java.model.Car;
 import com.demo.java.model.Regex;
 import com.demo.java.service.CarService;
+import com.demo.java.utils.PatternUtils;
 import com.demo.java.utils.SpringContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
 
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CarCrawler extends BreadthCrawler {
 
@@ -40,32 +39,26 @@ public class CarCrawler extends BreadthCrawler {
         Document doc = page.doc();
         JSONObject object = new JSONObject();
         for (Map.Entry<String, Object> entry : json.entrySet()) {
-            if (entry.getKey().equals("id")) continue;
             JSONObject jsonVal = (JSONObject) entry.getValue();
             String dom = jsonVal.getString("dom");
-            Integer index = jsonVal.getInteger("index");
-            if (index == null) {
-                index = 0;
-            }
             if (StringUtils.isBlank(dom)) continue;
+            Integer index = jsonVal.getInteger("index");
+            String type = jsonVal.getString("type");
+            if (StringUtils.isBlank(type)) type = "String";
+            if (index == null) index = 0;
             String val = doc.select(dom).eq(index).text();
+            if (type.equals("Integer")) {
+                val = PatternUtils.matchNum(val);
+            }
             object.put(entry.getKey(), val);
         }
         Car car = JSON.toJavaObject(object, Car.class);
         if (car != null && StringUtils.isNoneBlank(car.getCarName())) {
             String url = page.getUrl();
-            car.setId(patternId(url));
+            car.setId(PatternUtils.matchInteger(url, 1));
             car.setUrl(url);
             carService.saveOrUpdate(car);
         }
-    }
-
-    static String patternId(String str) {
-        String regex = "\\d+[a-z]";
-        Matcher matcher = Pattern.compile(regex).matcher(str);
-        if (matcher.find())
-            return matcher.group();
-        return "";
     }
 
     public static void start(String seed, String regex, int start, int threads) throws Exception {
