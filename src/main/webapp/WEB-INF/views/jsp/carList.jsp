@@ -23,6 +23,17 @@
     <script src="/js/html5shiv/html5shiv.min.js"></script>
     <script src="/js/respond/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .title {
+            width: 300px;
+        }
+    </style>
 </head>
 <body>
 <jsp:directive.include file="common/nav.html"/>
@@ -32,30 +43,30 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Dashboard</h1>
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" style="table-layout:fixed">
                     <thead>
                     <tr>
                         <th>名称</th>
-                        <th>价格</th>
-                        <th>上牌时间</th>
-                        <th>里程数</th>
-                        <th>联系人</th>
-                        <th>电话</th>
-                        <th>时间</th>
-                        <th>#</th>
+                        <th style="width: 70px;">价格(万)</th>
+                        <th style="width: 100px;">上牌时间</th>
+                        <th style="width: 100px;">里程数</th>
+                        <th style="width: 85px;">联系人</th>
+                        <th style="width: 120px;">电话</th>
+                        <th style="width: 160px;">时间</th>
+                        <th style="width: 50px;">来源</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="item" items="${list}" varStatus="status">
                         <tr id="${item.id}">
-                            <td>${item.carName}</td>
+                            <td class="ellipsis title" title="${item.carName}">${item.carName}</td>
                             <td>${item.price}</td>
                             <td>${item.onTime}</td>
                             <td>${item.mileage}</td>
                             <td>${item.userName}</td>
-                            <td>${item.phone}</td>
+                            <td class="ellipsis" title="${item.phone}">${item.phone}</td>
                             <td>${item.createTime}</td>
-                            <td><a href="${item.url}" target="_blank">URL</a></td>
+                            <td><a href="${item.url}" target="_blank">查看</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>

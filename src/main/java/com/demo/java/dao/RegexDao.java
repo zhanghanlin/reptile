@@ -23,8 +23,9 @@ public class RegexDao {
     }
 
     public int save(Regex regex) {
-        String sql = "INSERT INTO REGEX(id,seed,regex,start,thread,data,create_time,update_time) values(?,?,?,?,?,?,NOW(),NOW())";
+        String sql = "INSERT INTO REGEX(id,name,seed,regex,start,thread,data,create_time,update_time) values(?,?,?,?,?,?,NOW(),NOW())";
         return jdbcTemplate.update(sql, new Object[]{regex.getId(),
+                regex.getName(),
                 regex.getSeed(),
                 regex.getRegex(),
                 regex.getStart(),
@@ -35,8 +36,9 @@ public class RegexDao {
 
 
     public int update(Regex regex) {
-        String sql = "UPDATE REGEX SET seed=?,regex=?,start=?,thread=?,data=?,update_time=NOW() WHERE id=?";
+        String sql = "UPDATE REGEX SET name=?,seed=?,regex=?,start=?,thread=?,data=?,update_time=NOW() WHERE id=?";
         return jdbcTemplate.update(sql, new Object[]{
+                regex.getName(),
                 regex.getSeed(),
                 regex.getRegex(),
                 regex.getStart(),

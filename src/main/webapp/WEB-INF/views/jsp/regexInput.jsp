@@ -34,6 +34,13 @@
             <form class="form-horizontal" action="/regex/save" method="post">
                 <input type="hidden" name="id" value="${regex.id}"/>
                 <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">名称</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" value="${regex.name}" name="name" id="name"
+                               placeholder="seed">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="seed" class="col-sm-2 control-label">种子地址</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" value="${regex.seed}" name="seed" id="seed"

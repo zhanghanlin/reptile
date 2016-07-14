@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Regex {
     private String id;
+    private String name;
     private String seed;
     private String regex;
     private int start;
@@ -33,6 +34,14 @@ public class Regex {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSeed() {

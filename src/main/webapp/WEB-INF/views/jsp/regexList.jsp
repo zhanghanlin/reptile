@@ -35,18 +35,20 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Seed</th>
-                        <th>Regex</th>
+                        <th>名称</th>
+                        <th>种子</th>
+                        <th>正则</th>
                         <th style="width: 50px;">深度</th>
                         <th style="width: 60px;">线程数</th>
-                        <th style="width: 95px;">更新时间</th>
+                        <th style="width: 160px;">更新时间</th>
                         <th>#</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="item" items="${list}" varStatus="status">
                         <tr id="${item.id}">
-                            <td>${item.seed}</td>
+                            <td>${item.name}</td>
+                            <td><a href="${item.seed}">查看</a></td>
                             <td>${item.regex}</td>
                             <td>${item.start}</td>
                             <td>${item.thread}</td>
