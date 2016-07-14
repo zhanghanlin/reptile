@@ -6,6 +6,7 @@ import com.demo.java.model.Regex;
 import com.demo.java.service.RegexService;
 import com.demo.java.utils.CollectorDisc;
 import com.demo.java.utils.ReflectUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,6 +58,7 @@ public class RegexController {
     @RequestMapping("/save")
     public String save(Regex regex) {
         try {
+            regex.setData(StringEscapeUtils.unescapeHtml4(regex.getData()));
             if (StringUtils.isBlank(regex.getId())) {
                 regex.setId(UUID.randomUUID().toString().replace("-", ""));
                 regexService.save(regex);

@@ -77,7 +77,7 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <div class="form-group col-data">
+                            <div class="form-group">
                                 <div class="col-md-2" style="text-align: right;">
                                     <div class="col-md-12">字段名</div>
                                 </div>

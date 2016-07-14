@@ -100,6 +100,7 @@
             url: '/json/dataTable.oLanguage.json'
         },
         fnRowCallback: function (nRow, aData) {
+            $(nRow).attr('id', aData['id']);
             $('td:eq(0)', nRow).attr("title", aData['carName']);
             $('td:eq(5)', nRow).attr("title", aData['phone']);
             $('td:eq(6)', nRow).attr("title", aData['address']);
