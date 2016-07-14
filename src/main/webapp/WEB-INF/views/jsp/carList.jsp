@@ -52,13 +52,12 @@
                         <th style="width: 50px;">发布人</th>
                         <th>电话</th>
                         <th>地址</th>
-                        <th style="width: 110px;">时间</th>
                         <th style="width: 30px;">来源</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td colspan="12">Loading data from server</td>
+                        <td colspan="11">Loading data from server</td>
                     </tr>
                     </tbody>
                 </table>
@@ -98,7 +97,6 @@
             {data: 'userName'},
             {data: 'phone'},
             {data: 'address'},
-            {data: 'createTime'},
             {data: 'url'}
         ],
         select: true,
@@ -110,8 +108,8 @@
             $('td:eq(0)', nRow).attr("title", aData['carName']);
             $('td:eq(5)', nRow).attr("title", aData['phone']);
             $('td:eq(6)', nRow).attr("title", aData['address']);
-            $('td:eq(7)', nRow).html(formatDate(aData['createTime']));
-            $('td:eq(8)', nRow).html('<a href="' + aData['url'] + '" target="_blank">查看</a>')
+//            $('td:eq(7)', nRow).html(formatDate(aData['createTime']));
+            $('td:eq(7)', nRow).html('<a href="' + aData['url'] + '" target="_blank">查看</a>')
         }
     });
 
