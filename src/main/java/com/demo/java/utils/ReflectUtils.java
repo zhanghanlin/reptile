@@ -1,5 +1,7 @@
 package com.demo.java.utils;
 
+import com.demo.java.common.annotation.Ignore;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +27,9 @@ public class ReflectUtils {
     public static List<String> getFields(Class clz) {
         List<String> list = new ArrayList<>();
         for (Field field : fields(clz)) {
+            if (field.isAnnotationPresent(Ignore.class)) {
+                continue;
+            }
             list.add(field.getName());
         }
         return list;

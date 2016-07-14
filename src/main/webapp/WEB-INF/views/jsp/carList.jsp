@@ -105,10 +105,21 @@
             $('td:eq(0)', nRow).addClass('ellipsis').addClass('title');
             $('td:eq(5)', nRow).attr("title", aData['phone']);
             $('td:eq(5)', nRow).addClass('ellipsis');
-            $('td:eq(6)', nRow).html(new Date(aData['createTime']).toLocaleString().replace(/:\d{1,2}$/, ' '))
+            $('td:eq(6)', nRow).html(formatDate(aData['createTime']));
             $('td:eq(7)', nRow).html('<a href="' + aData['url'] + '" target="_blank">查看</a>')
         }
     });
+
+    function formatDate(timestamp) {
+        var now = new Date(timestamp);
+        var year = now.getYear();
+        var month = now.getMonth() + 1;
+        var date = now.getDate();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        return year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+    }
 </script>
 </body>
 </html>

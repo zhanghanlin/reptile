@@ -77,7 +77,7 @@
                     <label for="methodParam" class="col-sm-2 control-label">方法参数</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" value="${regexId}" name="methodParam" id="methodParam"
-                               placeholder="methodParam">
+                               placeholder="methodParam" disabled>
                     </div>
                 </div>
                 <div class="form-group">

@@ -1,8 +1,11 @@
 package com.demo.java.model;
 
+import com.demo.java.common.annotation.Ignore;
+
 import java.util.Date;
 
 public class Car {
+    @Ignore
     private String id;  //Id
     private String carName; //名称
     private String price;   //价格 单位万
@@ -14,9 +17,11 @@ public class Car {
     private String accident;    //事故
     private String userName;    //联系人
     private String phone;   //联系方式
-
+    @Ignore
     private Date createTime;    //抓取时间
+    @Ignore
     private Date updateTime;    //更新时间
+    @Ignore
     private String url;     //原始URL
 
     public String getId() {
