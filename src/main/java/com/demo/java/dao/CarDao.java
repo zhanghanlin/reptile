@@ -16,7 +16,7 @@ public class CarDao {
 
     static String insert_sql = "INSERT INTO CAR(id,car_name,price,on_time," +
             "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,url)" +
-            " values(?,?,?,?,?,?,?,?,?,?,?,NOW(),?)";
+            " values(?,?,?,?,?,?,?,?,?,?,?,?)";
     static String update_sql = "UPDATE CAR SET car_name=?,price=?,on_time=?" +
             ",mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?,user_name=?,phone=?,url=?,update_time=NOW() WHERE id=?";
 
