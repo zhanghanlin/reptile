@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class CarCrawler extends BreadthCrawler {
 
-    private static JSONObject json;
+    private static Regex regex;
 
     CarService carService = (CarService) SpringContextUtil.getBean("carService");
 
@@ -36,41 +36,64 @@ public class CarCrawler extends BreadthCrawler {
 
     @Override
     public void visit(Page page, CrawlDatums next) {
-        Document doc = page.doc();
-        JSONObject object = new JSONObject();
-        for (Map.Entry<String, Object> entry : json.entrySet()) {
-            JSONObject jsonVal = (JSONObject) entry.getValue();
-            String dom = jsonVal.getString("dom");
-            if (StringUtils.isBlank(dom)) continue;
-            Integer index = jsonVal.getInteger("index");
-            String type = jsonVal.getString("type");
-            if (StringUtils.isBlank(type)) type = "String";
-            if (index == null) index = 0;
-            String val = doc.select(dom).eq(index).text();
-            if (type.equals("Integer")) {
-                val = PatternUtils.matchNum(val);
+        if (page.matchUrl(regex.getRegex())) {
+            Document doc = page.doc();
+            for (String ik : regex.ignoreKeys()) {
+                if (doc.select(ik).size() > 0) {
+                    return;
+                }
             }
-            object.put(entry.getKey(), val);
-        }
-        Car car = JSON.toJavaObject(object, Car.class);
-        if (car != null && StringUtils.isNoneBlank(car.getCarName())) {
-            String url = page.getUrl();
-            car.setId(PatternUtils.matchInteger(url, 1));
-            car.setUrl(url);
-            carService.saveOrUpdate(car);
+            JSONObject object = new JSONObject();
+            for (Map.Entry<String, Object> entry : regex.getJSONData().entrySet()) {
+                JSONObject jsonVal = (JSONObject) entry.getValue();
+                String dom = jsonVal.getString("dom");
+                if (StringUtils.isBlank(dom)) continue;
+                String type = jsonVal.getString("type");
+                if (StringUtils.isBlank(type)) type = "String";
+                String[] domes = dom.split("\\|");
+                String val = "";
+                for (String d : domes) {
+                    val = doc.select(d).eq(0).text();
+                    if (StringUtils.isNoneBlank(val)) {
+                        break;
+                    }
+                }
+                if (type.equals("Integer")) {
+                    val = PatternUtils.matchNum(val);
+                }
+                object.put(entry.getKey(), val);
+            }
+            Car car = JSON.toJavaObject(object, Car.class);
+            if (car != null && StringUtils.isNoneBlank(car.getCarName())) {
+                String url = page.getUrl();
+                car.setId(PatternUtils.matchInteger(url, 1));
+                car.setUrl(url);
+                carService.saveOrUpdate(car);
+            }
         }
     }
 
     public static void start(String seed, String regex, int start, int threads) throws Exception {
-        CarCrawler crawler = new CarCrawler("crawler", true);
+        CarCrawler crawler = new CarCrawler("esc58", true);
         crawler.addSeed(seed);
         crawler.addRegex(regex);
         crawler.setThreads(threads);
         crawler.start(start);
     }
 
-    public static void start(Regex regex) throws Exception {
-        json = regex.getJSONData();
+    public static void start(Regex t) throws Exception {
+        regex = t;
         start(regex.getSeed(), regex.getRegex(), regex.getStart(), regex.getThread());
+    }
+
+    public static void main(String[] args) throws Exception {
+        Regex t = new Regex();
+//        t.setSeed("http://m.58.com/bj/ershouche/");
+//        t.setRegex("http://m.58.com/bj/ershouche/(\\d+)x.shtml(.*)");
+        t.setSeed("http://bj.58.com/ershouche");
+        t.setRegex("http://bj.58.com/ershouche/[0-9]+x.shtml(.*)");
+        t.setStart(5);
+        t.setThread(30);
+        start(t);
     }
 }

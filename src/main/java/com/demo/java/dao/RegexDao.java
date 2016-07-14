@@ -23,26 +23,28 @@ public class RegexDao {
     }
 
     public int save(Regex regex) {
-        String sql = "INSERT INTO REGEX(id,name,seed,regex,start,thread,data) values(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO REGEX(id,name,seed,regex,start,thread,ignore_key,data) values(?,?,?,?,?,?,?,?)";
         return jdbcTemplate.update(sql, new Object[]{regex.getId(),
                 regex.getName(),
                 regex.getSeed(),
                 regex.getRegex(),
                 regex.getStart(),
                 regex.getThread(),
+                regex.getIgnoreKey(),
                 regex.getData()
         });
     }
 
 
     public int update(Regex regex) {
-        String sql = "UPDATE REGEX SET name=?,seed=?,regex=?,start=?,thread=?,data=?,update_time=NOW() WHERE id=?";
+        String sql = "UPDATE REGEX SET name=?,seed=?,regex=?,start=?,thread=?,ignore_key=?,data=?,update_time=NOW() WHERE id=?";
         return jdbcTemplate.update(sql, new Object[]{
                 regex.getName(),
                 regex.getSeed(),
                 regex.getRegex(),
                 regex.getStart(),
                 regex.getThread(),
+                regex.getIgnoreKey(),
                 regex.getData(),
                 regex.getId()
         });

@@ -12,6 +12,7 @@ public class Regex {
     private String regex;
     private int start;
     private int thread;
+    private String ignoreKey;
     private String data;
     private Date createTime;
     private Date updateTime;
@@ -76,6 +77,14 @@ public class Regex {
         this.thread = thread;
     }
 
+    public String getIgnoreKey() {
+        return ignoreKey;
+    }
+
+    public void setIgnoreKey(String ignoreKey) {
+        this.ignoreKey = ignoreKey;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -90,5 +99,9 @@ public class Regex {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String[] ignoreKeys() {
+        return ignoreKey.split("\\|");
     }
 }
