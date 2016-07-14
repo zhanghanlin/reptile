@@ -34,10 +34,10 @@ public class CarController {
     @RequestMapping("/api/list")
     @ResponseBody
     public TablePage<Car> apiList(@RequestParam(defaultValue = "1", required = false) int start,
-                                  @RequestParam(defaultValue = "10", required = false) int size,
+                                  @RequestParam(defaultValue = "10", required = false) int length,
                                   @RequestParam(defaultValue = "1", required = false) int draw) {
         try {
-            TablePage<Car> page = carService.listByPage(start, size);
+            TablePage<Car> page = carService.listByPage(start, length);
             page.setDraw(draw);
             return page;
         } catch (Exception e) {

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
@@ -41,7 +40,7 @@
     <div class="row">
         <jsp:directive.include file="common/left.html"/>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Dashboard</h1>
+            <h1 class="page-header">二手车数据</h1>
             <div class="table-responsive">
                 <table id="search" class="table table-striped" style="table-layout:fixed">
                     <thead>
@@ -60,18 +59,6 @@
                     <tr>
                         <td colspan="8">Loading data from server</td>
                     </tr>
-                    <%--<c:forEach var="item" items="${list}" varStatus="status">--%>
-                    <%--<tr id="${item.id}">--%>
-                    <%--<td class="ellipsis title" title="${item.carName}">${item.carName}</td>--%>
-                    <%--<td>${item.price}</td>--%>
-                    <%--<td>${item.onTime}</td>--%>
-                    <%--<td>${item.mileage}</td>--%>
-                    <%--<td>${item.userName}</td>--%>
-                    <%--<td class="ellipsis" title="${item.phone}">${item.phone}</td>--%>
-                    <%--<td>${item.createTime}</td>--%>
-                    <%--<td><a href="${item.url}" target="_blank">查看</a></td>--%>
-                    <%--</tr>--%>
-                    <%--</c:forEach>--%>
                     </tbody>
                 </table>
             </div>
@@ -86,6 +73,8 @@
     $('#search').DataTable({
         bPaginate: true,// 分页按钮
         lengthChange: true,  //修改每页数量
+        searching: false,
+        sort: false,
         info: true,   //显示数据信息 第几页,总共几页等等
         autoWidth: false, //是否固定宽度
         bProcessing: false,    //服务器等等提示

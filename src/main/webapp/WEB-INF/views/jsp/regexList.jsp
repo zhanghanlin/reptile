@@ -30,7 +30,7 @@
     <div class="row">
         <jsp:directive.include file="common/left.html"/>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Dashboard</h1>
+            <h1 class="page-header">抓取任务列表</h1>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
