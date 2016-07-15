@@ -59,6 +59,7 @@
                                 <a class="btn btn-default btn-xs"
                                    role="button" href="/regex/input/${item.id}">编辑</a>
                                 <button class="btn btn-default btn-xs fetcher" action="start">爬取</button>
+                                <button class="btn btn-default btn-xs fetcher" action="stop">停止爬取</button>
                                 <a class="btn btn-default btn-xs"
                                    role="button" href="/regex/delete/${item.id}">删除</a>
                                 <a class="btn btn-default btn-xs"
@@ -79,6 +80,9 @@
     $('.fetcher').click(function () {
         var id = $(this).parents('tr').attr('id');
         var action = $(this).attr('action');
+        if (action == 'start') {
+            alert('后台爬取开始...');
+        }
         $.ajax({
             url: '/fetcher/' + action + '/' + id,
             type: 'GET',
@@ -86,7 +90,7 @@
             success: function (msg) {
                 alert(msg);
             }
-        })
+        });
     });
 </script>
 </body>

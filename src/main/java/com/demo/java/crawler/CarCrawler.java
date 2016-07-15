@@ -167,7 +167,7 @@ public class CarCrawler extends BreadthCrawler {
     /**
      * 设置代理IP
      */
-    public static void setProxys() {
+    public void setProxys() {
         String classPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         File file = new File(classPath + "/proxy");
         try {
@@ -191,35 +191,26 @@ public class CarCrawler extends BreadthCrawler {
      * @param t
      * @throws Exception
      */
-    public static void start(Regex t) throws Exception {
+    public void start(Regex t) throws Exception {
         regex = t;
         if (t.getIsProxy() == 1) {
             setProxys();
         }
-        CarCrawler crawler = new CarCrawler(t.getTaskKey(), true);
-        crawler.addSeed(t.getSeed());
-        crawler.addRegex(t.getRegex());
-        crawler.setThreads(t.getThread());
-        crawler.start(t.getStart());
-    }
-
-    /**
-     * 停止
-     * @param t
-     */
-    public static void stop(Regex t) {
-        CarCrawler crawler = new CarCrawler(t.getTaskKey(), true);
-        crawler.stop();
+//        CarCrawler crawler = new CarCrawler(t.getTaskKey(), true);
+        this.addSeed(t.getSeed());
+        this.addRegex(t.getRegex());
+        this.setThreads(t.getThread());
+        this.start(t.getStart());
     }
 
     public static void main(String[] args) throws Exception {
-        Regex t = new Regex();
-        t.setSeed("http://bj.58.com/ershouche");
-        t.setRegex("http://bj.58.com/ershouche/[0-9]+x.shtml(.*)");
-        t.setStart(2);
-        t.setTaskKey("test58");
-        t.setThread(1);
-        t.setIsProxy(1);
-        start(t);
+//        Regex t = new Regex();
+//        t.setSeed("http://bj.58.com/ershouche");
+//        t.setRegex("http://bj.58.com/ershouche/[0-9]+x.shtml(.*)");
+//        t.setStart(2);
+//        t.setTaskKey("test58");
+//        t.setThread(1);
+//        t.setIsProxy(1);
+//        start(t);
     }
 }

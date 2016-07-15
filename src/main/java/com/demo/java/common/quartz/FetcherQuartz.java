@@ -21,7 +21,8 @@ public class FetcherQuartz {
     public void fetcher(String id) {
         try {
             Regex regex = regexService.get(id);
-            CarCrawler.start(regex);
+            CarCrawler carCrawler = new CarCrawler(regex.getTaskKey(), true);
+            carCrawler.start(regex);
         } catch (Exception e) {
             e.printStackTrace();
         }

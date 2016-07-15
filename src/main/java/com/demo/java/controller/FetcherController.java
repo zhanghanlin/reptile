@@ -4,6 +4,7 @@ import com.demo.java.crawler.Car58LoginData;
 import com.demo.java.crawler.CarCrawler;
 import com.demo.java.model.Regex;
 import com.demo.java.service.RegexService;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,31 +12,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("fetcher")
 public class FetcherController {
+
+    static Map<String, CarCrawler> map = new HashedMap();
 
     @Resource
     RegexService regexService;
 
     @RequestMapping("/start/{id}")
     @ResponseBody
-    public String fetcherStart(@PathVariable String id) {
+    public void fetcherStart(@PathVariable String id) {
         Regex regex = regexService.get(id);
         try {
-            CarCrawler.start(regex);
+            CarCrawler carCrawler = new CarCrawler(regex.getTaskKey(), true);
+            map.put(regex.getTaskKey(), carCrawler);
+            carCrawler.start(regex);
+            map.remove(regex.getTaskKey());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "后台爬取中...";
     }
 
     @RequestMapping("/stop/{id}")
     @ResponseBody
     public String fetcherStop(@PathVariable String id) {
         Regex regex = regexService.get(id);
-        CarCrawler.stop(regex);
+        CarCrawler carCrawler = map.get(regex.getTaskKey());
+        if (carCrawler == null) {
+            return "没有运行的爬取任务";
+        }
+        carCrawler.stop();
+        map.remove(regex.getTaskKey());
         return "停止爬取";
     }
 
