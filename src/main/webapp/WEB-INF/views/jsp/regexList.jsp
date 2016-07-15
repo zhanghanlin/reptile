@@ -63,7 +63,7 @@
                                 <a class="btn btn-default btn-xs"
                                    role="button" href="/regex/delete/${item.id}">删除</a>
                                 <a class="btn btn-default btn-xs"
-                                   role="button" href="/quartz/input?regexId=${item.id}">部署定时</a>
+                                   role="button" href="/quartz/input/${item.id}">部署定时</a>
                             </td>
                         </tr>
                     </c:forEach>

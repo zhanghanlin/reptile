@@ -2,14 +2,13 @@ package com.demo.java.controller;
 
 import com.demo.java.common.quartz.FetcherQuartz;
 import com.demo.java.common.quartz.ScheduleFactory;
-import com.demo.java.model.Task;
 import com.demo.java.common.utils.ReflectUtils;
+import com.demo.java.model.Task;
 import com.demo.java.service.TaskService;
 import org.quartz.SchedulerException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,8 +26,8 @@ public class QuartzController {
     @Resource
     TaskService jobService;
 
-    @RequestMapping("input")
-    public ModelAndView input(@RequestParam(defaultValue = "") String regexId) {
+    @RequestMapping("input/{regexId}")
+    public ModelAndView input(@PathVariable String regexId) {
         ModelAndView modelAndView = new ModelAndView("quartzInput");
         modelAndView.addObject("regexId", regexId);
         modelAndView.addObject("methods", ReflectUtils.getMethod(FetcherQuartz.class));
