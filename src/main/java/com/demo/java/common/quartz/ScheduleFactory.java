@@ -15,23 +15,11 @@ public class ScheduleFactory {
 
     final static Logger LOG = LoggerFactory.getLogger(ScheduleFactory.class);
 
-    // 实例化线程池
     StdScheduler scheduler = (StdScheduler) SpringContextUtil.getBean("schedulerFactoryBean");
 
     TaskService taskService = (TaskService) SpringContextUtil.getBean("taskService");
 
-    /**
-     * 添加任务
-     *
-     * @param task
-     * @throws SchedulerException
-     */
-    public void addJob(Task task) throws SchedulerException {
-        taskService.save(task);
-        if (task == null || !Task.STATUS_RUNNING.equals(task.getStatus())) {
-            return;
-        }
-        LOG.info("{} add", scheduler);
+    public void createJob(Task task) throws SchedulerException {
         TriggerKey triggerKey = TriggerKey.triggerKey(task.getName(), task.getTaskGroup());
         CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
         // 不存在，创建一个
@@ -49,6 +37,21 @@ public class ScheduleFactory {
             // 按新的trigger重新设置job执行
             scheduler.rescheduleJob(triggerKey, trigger);
         }
+    }
+
+    /**
+     * 添加任务
+     *
+     * @param task
+     * @throws SchedulerException
+     */
+    public void addJob(Task task) throws SchedulerException {
+        taskService.save(task);
+        if (task == null || !Task.STATUS_RUNNING.equals(task.getStatus())) {
+            return;
+        }
+        LOG.info("{} add", scheduler);
+        createJob(task);
     }
 
     /**
