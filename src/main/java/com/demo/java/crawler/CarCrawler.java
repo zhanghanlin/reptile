@@ -22,6 +22,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+import static com.demo.java.common.utils.Config.DEFAULT_ENCODE;
+import static com.demo.java.common.utils.Config.PROXY_FILE;
+
 public class CarCrawler extends BreadthCrawler {
 
     private static Regex regex;
@@ -168,10 +171,9 @@ public class CarCrawler extends BreadthCrawler {
      * 设置代理IP
      */
     public void setProxy() {
-        String classPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        File file = new File(classPath + "/proxy");
+        File file = new File(PROXY_FILE);
         try {
-            String ip = FileUtils.readFile(file, "UTF-8");
+            String ip = FileUtils.readFile(file, DEFAULT_ENCODE);
             String ips[] = ip.split("\r\n");
             for (String i : ips) {
                 if (!proxys.contains(i)) {

@@ -15,6 +15,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static com.demo.java.common.utils.Config.PROXY_FILE;
+import static com.demo.java.common.utils.Config.PROXY_FILE_BAK;
+
 /**
  * 代理抓取
  */
@@ -58,7 +61,7 @@ public class ProxyCrawler extends BreadthCrawler {
      */
     public void writeProxy(String content, boolean append) {
         try {
-            File file = new File(classPath + "/proxy.bak");
+            File file = new File(PROXY_FILE_BAK);
             if (!file.exists()) {
                 try {
                     file.createNewFile();
@@ -75,7 +78,6 @@ public class ProxyCrawler extends BreadthCrawler {
         }
     }
 
-    static String classPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
     static String proxy_regex = "http://www.kuaidaili.com/proxylist/[0-9]+/";
 
     /**
@@ -89,7 +91,7 @@ public class ProxyCrawler extends BreadthCrawler {
         this.addRegex(proxy_regex);
         this.setThreads(1);
         this.start(2);
-        FileUtils.copy(new File(classPath + "/proxy.bak"), new File(classPath + "/proxy"));
+        FileUtils.copy(new File(PROXY_FILE_BAK), new File(PROXY_FILE));
     }
 
     public static void main(String[] args) throws Exception {
