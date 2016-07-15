@@ -9,23 +9,18 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-    <description>Spring公共配置</description>
+    <description>Spring Common Config</description>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-    <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired、@Resource的属性被注入 -->
-    <!-- 扫描注解Bean -->
     <bean id="springContextUtil" class="com.demo.java.common.utils.SpringContextUtil"/>
+    <!-- 扫描注解Bean -->
     <context:component-scan base-package="com.demo.java">
-        <context:exclude-filter type="annotation"
-                                expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-    <!-- property -->
-    <context:property-placeholder location="classpath:collector.properties"
-                                  ignore-unresolvable="true"
+    <!-- Property -->
+    <context:property-placeholder location="classpath:collector.properties" ignore-unresolvable="true"
                                   file-encoding="UTF-8"/>
-
-    <!-- 数据源 -->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-          init-method="init" destroy-method="close">
+    <!-- Druid DataSource数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
@@ -53,8 +48,7 @@
         <property name="filters" value="${druid.filters}"/>
     </bean>
     <!-- 事务管理器配置, 使用jdbc事务 -->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
     <!-- 使用annotation定义事务 -->
@@ -63,8 +57,9 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <!-- 动态定时器配置 -->
     <bean id="schedulerFactoryBean"
           class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
     <!--加载可执行的任务-->
-    <bean id="loadTask" class="com.demo.java.common.quartz.LoadTask" init-method="initTask" />
+    <bean id="loadTask" class="com.demo.java.common.quartz.LoadTask" init-method="initTask"/>
 </beans>
