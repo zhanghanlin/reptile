@@ -97,8 +97,9 @@
                                 </div>
                                 <div class="col-sm-10">
                                     <div class="col-md-4">CSS选择器</div>
-                                    <div class="col-md-4">获取数据类型</div>
-                                    <div class="col-md-4">数据处理</div>
+                                    <div class="col-md-2">获取数据类型</div>
+                                    <div class="col-md-2">是否处理</div>
+                                    <div class="col-md-3">处理值</div>
                                 </div>
                             </div>
                             <c:forEach var="item" items="${data.entrySet()}" varStatus="status">
@@ -124,7 +125,7 @@
                                                 <option value="replace">替换</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <input type="text" class="form-control col_handle_p"
                                                    value="${item.value.get('handle_p')}"
                                                    placeholder="${item.value.get('handle_p')}">
