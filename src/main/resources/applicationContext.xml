@@ -13,7 +13,7 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired、@Resource的属性被注入 -->
     <!-- 扫描注解Bean -->
-    <bean id="springContextUtil" class="com.demo.java.utils.SpringContextUtil"/>
+    <bean id="springContextUtil" class="com.demo.java.common.utils.SpringContextUtil"/>
     <context:component-scan base-package="com.demo.java">
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>

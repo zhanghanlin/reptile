@@ -14,12 +14,6 @@ public class CarDao {
     @Resource
     JdbcTemplate jdbcTemplate;
 
-    static String insert_sql = "INSERT INTO CAR(id,car_name,price,on_time," +
-            "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,url,address)" +
-            " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    static String update_sql = "UPDATE CAR SET car_name=?,price=?,on_time=?" +
-            ",mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?,user_name=?,phone=?,url=?,address=?,update_time=NOW() WHERE id=?";
-
     public Car get(String id) {
         String sql = "SELECT * FROM CAR WHERE ID = ?";
         List<Car> list = jdbcTemplate.query(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(Car.class));
@@ -35,6 +29,9 @@ public class CarDao {
      * @return
      */
     public int update(Car car) {
+        String update_sql = "UPDATE CAR SET car_name=?,price=?,on_time=?," +
+                "mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?," +
+                "user_name=?,phone=?,url=?,address=?,update_time=NOW() WHERE id=?";
         return jdbcTemplate.update(update_sql, new Object[]{car.getCarName(),
                 car.getPrice(),
                 car.getOnTime(),
@@ -58,6 +55,9 @@ public class CarDao {
      * @return
      */
     public int save(Car car) {
+        String insert_sql = "INSERT INTO CAR(id,car_name,price,on_time," +
+                "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,url,address)" +
+                " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return jdbcTemplate.update(insert_sql, new Object[]{car.getId(),
                 car.getCarName(),
                 car.getPrice(),

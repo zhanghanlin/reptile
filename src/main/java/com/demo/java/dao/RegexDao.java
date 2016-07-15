@@ -36,7 +36,6 @@ public class RegexDao {
         });
     }
 
-
     public int update(Regex regex) {
         String sql = "UPDATE REGEX SET name=?,seed=?,regex=?,start=?,thread=?,ignore_key=?,task_key=?,data=?,update_time=NOW() WHERE id=?";
         return jdbcTemplate.update(sql, new Object[]{

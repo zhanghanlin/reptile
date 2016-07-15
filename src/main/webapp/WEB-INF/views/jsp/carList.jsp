@@ -108,7 +108,6 @@
             $('td:eq(0)', nRow).attr("title", aData['carName']);
             $('td:eq(8)', nRow).attr("title", aData['phone']);
             $('td:eq(9)', nRow).attr("title", aData['address']);
-//            $('td:eq(7)', nRow).html(formatDate(aData['createTime']));
             $('td:eq(10)', nRow).html('<a href="' + aData['url'] + '" target="_blank">查看</a>')
         }
     });

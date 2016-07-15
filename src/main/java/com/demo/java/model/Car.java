@@ -4,7 +4,7 @@ import com.demo.java.common.annotation.Ignore;
 
 import java.util.Date;
 
-import static com.demo.java.utils.Config.STRING_EMPTY;
+import static com.demo.java.common.utils.Config.STRING_EMPTY;
 
 public class Car {
     @Ignore

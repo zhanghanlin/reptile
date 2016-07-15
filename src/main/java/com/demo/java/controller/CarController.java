@@ -2,7 +2,7 @@ package com.demo.java.controller;
 
 import com.demo.java.model.Car;
 import com.demo.java.service.CarService;
-import com.demo.java.vo.TablePage;
+import com.demo.java.common.vo.TablePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

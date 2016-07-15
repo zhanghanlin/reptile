@@ -8,8 +8,8 @@ import com.demo.java.collector.plugin.berkeley.BreadthCrawler;
 import com.demo.java.model.Car;
 import com.demo.java.model.Regex;
 import com.demo.java.service.CarService;
-import com.demo.java.utils.PatternUtils;
-import com.demo.java.utils.SpringContextUtil;
+import com.demo.java.common.utils.PatternUtils;
+import com.demo.java.common.utils.SpringContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
 

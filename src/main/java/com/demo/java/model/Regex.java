@@ -5,19 +5,26 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.Date;
 
+/**
+ * 抓取任务规则Bean
+ */
 public class Regex {
     private String id;
-    private String name;
-    private String seed;
-    private String regex;
-    private int start;
-    private int thread;
-    private String ignoreKey;
-    private String data;
-    private String taskKey;
+    private String name;    //任务名称
+    private String seed;    //注入种子地址
+    private String regex;   //地址正则
+    private int start;  //爬取深度
+    private int thread; //线程数量
+    private String ignoreKey;   //抓取时如果页面存在该选择器的元素则忽略该页面
+    private String data;    //自定义字段JSON格式
+    private String taskKey; //任务Key唯一
     private Date createTime;
     private Date updateTime;
 
+    /**
+     * 返回JSON格式data数据
+     * @return
+     */
     public JSONObject getJSONData() {
         return JSONObject.parseObject(StringEscapeUtils.unescapeHtml4(data));
     }
@@ -110,6 +117,10 @@ public class Regex {
         this.updateTime = updateTime;
     }
 
+    /**
+     * 获取过滤选择器数组
+     * @return
+     */
     public String[] ignoreKeys() {
         return ignoreKey.split("\\|");
     }

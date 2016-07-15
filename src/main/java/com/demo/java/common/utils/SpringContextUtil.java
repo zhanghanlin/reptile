@@ -1,9 +1,12 @@
-package com.demo.java.utils;
+package com.demo.java.common.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+/**
+ * Sping工具类
+ */
 public class SpringContextUtil implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;

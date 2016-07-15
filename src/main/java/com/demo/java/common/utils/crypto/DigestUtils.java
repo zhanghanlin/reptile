@@ -1,4 +1,4 @@
-package com.demo.java.utils.crypto;
+package com.demo.java.common.utils.crypto;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,9 +1,12 @@
-package com.demo.java.utils;
+package com.demo.java.common.utils;
 
 import org.apache.commons.collections.map.HashedMap;
 
 import java.util.Map;
 
+/**
+ * 抓取二手车数据字段于中文对应数据
+ */
 public class CollectorDisc {
 
     public static Map<String, String> map = new HashedMap();

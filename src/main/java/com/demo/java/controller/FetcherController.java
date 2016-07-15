@@ -22,7 +22,6 @@ public class FetcherController {
     @RequestMapping("/{id}")
     @ResponseBody
     public String save(@PathVariable String id) {
-        //String seed, String regex, int start, int thread
         Regex regex = regexService.get(id);
         FetcherThread ft = new FetcherThread(regex);
         ft.start();

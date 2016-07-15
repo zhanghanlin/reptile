@@ -3,7 +3,7 @@ package com.demo.java.common.quartz;
 import com.demo.java.collector.example.CarCrawler;
 import com.demo.java.model.Regex;
 import com.demo.java.service.RegexService;
-import com.demo.java.utils.SpringContextUtil;
+import com.demo.java.common.utils.SpringContextUtil;
 
 /**
  * 动态定时抓取

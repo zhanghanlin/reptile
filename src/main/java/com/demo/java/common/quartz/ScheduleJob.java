@@ -2,6 +2,9 @@ package com.demo.java.common.quartz;
 
 import java.util.Date;
 
+/**
+ * 定时任务Bean
+ */
 public class ScheduleJob {
 
     public static final String STATUS_RUNNING = "1";

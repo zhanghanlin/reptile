@@ -1,8 +1,12 @@
-package com.demo.java.vo;
+package com.demo.java.common.vo;
 
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * JQuery DataTable 使用的PageVo
+ * @param <T>
+ */
 public class TablePage<T> implements Serializable {
 
     private static final long serialVersionUID = 2947666872800248033L;

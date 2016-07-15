@@ -1,4 +1,4 @@
-package com.demo.java.utils.crypto;
+package com.demo.java.common.utils.crypto;
 
 public class BytesUtils {
     public static String bytes2String(byte[] bytesArray) {

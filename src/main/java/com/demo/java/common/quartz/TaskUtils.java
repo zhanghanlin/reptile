@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * 定时任务工具类
+ */
 public class TaskUtils {
 
     final static Logger LOG = LoggerFactory.getLogger(TaskUtils.class);

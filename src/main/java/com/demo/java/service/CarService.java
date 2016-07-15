@@ -2,7 +2,7 @@ package com.demo.java.service;
 
 import com.demo.java.dao.CarDao;
 import com.demo.java.model.Car;
-import com.demo.java.vo.TablePage;
+import com.demo.java.common.vo.TablePage;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

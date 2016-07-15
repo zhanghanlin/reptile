@@ -1,7 +1,7 @@
 package com.demo.java.common.quartz;
 
 import com.demo.java.service.JobService;
-import com.demo.java.utils.SpringContextUtil;
+import com.demo.java.common.utils.SpringContextUtil;
 import org.quartz.*;
 import org.quartz.impl.StdScheduler;
 import org.quartz.impl.matchers.GroupMatcher;

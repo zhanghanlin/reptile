@@ -1,8 +1,11 @@
-package com.demo.java.utils;
+package com.demo.java.common.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 正则工具类
+ */
 public class PatternUtils {
 
     final static String INTEGER_REGEX = "\\d+";

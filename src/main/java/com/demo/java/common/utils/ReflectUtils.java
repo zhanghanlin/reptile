@@ -1,4 +1,4 @@
-package com.demo.java.utils;
+package com.demo.java.common.utils;
 
 import com.demo.java.common.annotation.Ignore;
 

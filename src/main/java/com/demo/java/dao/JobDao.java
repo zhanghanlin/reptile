@@ -14,9 +14,6 @@ public class JobDao {
     @Resource
     JdbcTemplate jdbcTemplate;
 
-    static String insert_sql = "INSERT INTO JOB(id,name,job_group,status,cron,description,bean_class,method_name,method_param)" +
-            " values(?,?,?,?,?,?,?,?,?)";
-
     public ScheduleJob get(String id) {
         String sql = "SELECT * FROM JOB WHERE ID = ?";
         List<ScheduleJob> list = jdbcTemplate.query(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(ScheduleJob.class));
@@ -42,6 +39,8 @@ public class JobDao {
      * @return
      */
     public int save(ScheduleJob job) {
+        String insert_sql = "INSERT INTO JOB(id,name,job_group,status,cron,description,bean_class,method_name,method_param)" +
+                " values(?,?,?,?,?,?,?,?,?)";
         return jdbcTemplate.update(insert_sql, new Object[]{
                 job.getId(),
                 job.getName(),
