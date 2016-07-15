@@ -167,7 +167,7 @@ public class CarCrawler extends BreadthCrawler {
     /**
      * 设置代理IP
      */
-    public void setProxys() {
+    public void setProxy() {
         String classPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         File file = new File(classPath + "/proxy");
         try {
@@ -188,19 +188,18 @@ public class CarCrawler extends BreadthCrawler {
     /**
      * 启动抓取任务
      *
-     * @param t
+     * @param regex
      * @throws Exception
      */
-    public void start(Regex t) throws Exception {
-        regex = t;
-        if (t.getIsProxy() == 1) {
-            setProxys();
+    public void start(Regex regex) throws Exception {
+        this.regex = regex;
+        if (regex.getIsProxy() == 1) {
+            setProxy();
         }
-//        CarCrawler crawler = new CarCrawler(t.getTaskKey(), true);
-        this.addSeed(t.getSeed());
-        this.addRegex(t.getRegex());
-        this.setThreads(t.getThread());
-        this.start(t.getStart());
+        this.addSeed(regex.getSeed());
+        this.addRegex(regex.getRegex());
+        this.setThreads(regex.getThread());
+        this.start(regex.getStart());
     }
 
     public static void main(String[] args) throws Exception {
