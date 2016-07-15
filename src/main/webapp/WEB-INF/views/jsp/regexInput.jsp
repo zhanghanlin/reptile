@@ -76,14 +76,33 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="isProxy" class="col-sm-2 control-label">是否需要代理</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="isProxy" id="isProxy" select="${regex.isProxy}">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="ignoreKey" class="col-sm-2 control-label">存在元素则忽略</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" value="${regex.ignoreKey}" style="width: 200px"
                                name="ignoreKey" id="ignoreKey" placeholder="ignoreKey">
                     </div>
                 </div>
-                <input type="hidden" name="data" id="data"/>
                 <div class="form-group">
+                    <label for="isData" class="col-sm-2 control-label">是否需要设置字段</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="isData" id="isData" select="${regex.isData}">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="hidden" name="data" id="data"/>
+                <div class="form-group" id="data_panel"
+                     <c:if test="${regex.isData == 0}">style="display:none;"</c:if>>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">
@@ -150,6 +169,9 @@
 <script src="/js/ie/ie10-viewport-bug-workaround.js"></script>
 <script>
     $(".form-horizontal").submit(function () {
+        if ($('#isData').val() * 1 == 0) {
+            return true;
+        }
         var data = {};
         $.each($('.col-data'), function (i, o) {
             var key = $(o).find('label').attr('for');
@@ -167,10 +189,18 @@
         $('#data').val(JSON.stringify(data));
         return true;
     });
-    $.each($('.panel-body select'), function (i, o) {
+    $.each($('.form-horizontal select'), function (i, o) {
         var val = $(o).attr('select');
         $(o).find('option[value="' + val + '"]').prop('selected', true)
     });
+
+    $('#isData').change(function () {
+        if ($(this).val() * 1 == 1) {
+            $('#data_panel').show();
+        } else {
+            $('#data_panel').hide();
+        }
+    })
 </script>
 </body>
 </html>

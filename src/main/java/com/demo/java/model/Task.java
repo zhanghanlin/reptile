@@ -1,11 +1,11 @@
-package com.demo.java.common.quartz;
+package com.demo.java.model;
 
 import java.util.Date;
 
 /**
  * 定时任务Bean
  */
-public class ScheduleJob {
+public class Task {
 
     public static final String STATUS_RUNNING = "1";
 
@@ -23,7 +23,7 @@ public class ScheduleJob {
     /**
      * 任务分组
      */
-    private String jobGroup;
+    private String taskGroup;
 
     /**
      * 任务状态 是否启动任务
@@ -87,12 +87,12 @@ public class ScheduleJob {
         this.name = name;
     }
 
-    public String getJobGroup() {
-        return jobGroup;
+    public String getTaskGroup() {
+        return taskGroup;
     }
 
-    public void setJobGroup(String jobGroup) {
-        this.jobGroup = jobGroup;
+    public void setTaskGroup(String taskGroup) {
+        this.taskGroup = taskGroup;
     }
 
     public String getStatus() {
@@ -144,6 +144,6 @@ public class ScheduleJob {
     }
 
     public String getTriggerKey() {
-        return jobGroup + "." + name;
+        return taskGroup + "." + name;
     }
 }

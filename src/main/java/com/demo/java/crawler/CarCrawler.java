@@ -1,23 +1,31 @@
-package com.demo.java.collector.example;
+package com.demo.java.crawler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.demo.java.collector.model.CrawlDatum;
 import com.demo.java.collector.model.CrawlDatums;
 import com.demo.java.collector.model.Page;
+import com.demo.java.collector.net.HttpRequest;
+import com.demo.java.collector.net.HttpResponse;
+import com.demo.java.collector.net.Proxys;
 import com.demo.java.collector.plugin.berkeley.BreadthCrawler;
+import com.demo.java.collector.util.FileUtils;
+import com.demo.java.common.utils.PatternUtils;
+import com.demo.java.common.utils.SpringContextUtil;
 import com.demo.java.model.Car;
 import com.demo.java.model.Regex;
 import com.demo.java.service.CarService;
-import com.demo.java.common.utils.PatternUtils;
-import com.demo.java.common.utils.SpringContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 public class CarCrawler extends BreadthCrawler {
 
     private static Regex regex;
+    private static Proxys proxys = new Proxys();
 
     CarService carService = (CarService) SpringContextUtil.getBean("carService");
 
@@ -141,6 +149,41 @@ public class CarCrawler extends BreadthCrawler {
         return val;
     }
 
+    /**
+     * 设置随机代理对象
+     *
+     * @param crawlDatum
+     * @return
+     * @throws Exception
+     */
+    public HttpResponse getResponse(CrawlDatum crawlDatum) throws Exception {
+        HttpRequest request = new HttpRequest(crawlDatum);
+        if (regex.getIsProxy() == 1 && proxys.size() > 0) {
+            request.setProxy(proxys.nextRandom());
+        }
+        return request.getResponse();
+    }
+
+    /**
+     * 设置代理IP
+     */
+    public static void setProxys() {
+        String classPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        File file = new File(classPath + "/proxy");
+        try {
+            String ip = FileUtils.readFile(file, "UTF-8");
+            String ips[] = ip.split("\r\n");
+            for (String i : ips) {
+                if (!proxys.contains(i)) {
+                    proxys.add(i);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 启动抓取任务
@@ -150,6 +193,9 @@ public class CarCrawler extends BreadthCrawler {
      */
     public static void start(Regex t) throws Exception {
         regex = t;
+        if (t.getIsData() == 1) {
+            setProxys();
+        }
         CarCrawler crawler = new CarCrawler(t.getTaskKey(), true);
         crawler.addSeed(t.getSeed());
         crawler.addRegex(t.getRegex());

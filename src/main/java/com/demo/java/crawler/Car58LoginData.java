@@ -1,4 +1,4 @@
-package com.demo.java.collector.example;
+package com.demo.java.crawler;
 
 import com.demo.java.collector.crawldb.DBManager;
 import com.demo.java.collector.crawler.Crawler;

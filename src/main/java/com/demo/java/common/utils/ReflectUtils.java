@@ -3,6 +3,7 @@ package com.demo.java.common.utils;
 import com.demo.java.common.annotation.Ignore;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +32,20 @@ public class ReflectUtils {
                 continue;
             }
             list.add(field.getName());
+        }
+        return list;
+    }
+
+    /**
+     * 获取Class下的所有方法
+     * @param clz
+     * @return
+     */
+    public static List<String> getMethod(Class clz) {
+        List<String> list = new ArrayList<>();
+        Method[] methods = clz.getDeclaredMethods();
+        for (Method m : methods) {
+            list.add(m.getName());
         }
         return list;
     }

@@ -39,9 +39,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="group" class="col-sm-2 control-label">组</label>
+                    <label for="taskGroup" class="col-sm-2 control-label">组</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="group" id="group" placeholder="group">
+                        <input type="text" class="form-control" name="taskGroup" id="taskGroup" placeholder="taskGroup">
                     </div>
                 </div>
                 <div class="form-group">
@@ -67,9 +67,9 @@
                     <label class="col-sm-2 control-label">执行方法</label>
                     <div class="col-sm-10">
                         <select class="form-control" name="methodName">
-                            <option value="fetcher">
-                                fetcher(java.lang.String)
-                            </option>
+                            <c:forEach var="item" items="${methods}">
+                                <option value="${item}">${item}</option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>

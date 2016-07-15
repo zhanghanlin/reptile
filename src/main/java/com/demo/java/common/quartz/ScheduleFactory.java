@@ -1,6 +1,7 @@
 package com.demo.java.common.quartz;
 
-import com.demo.java.service.JobService;
+import com.demo.java.model.Task;
+import com.demo.java.service.TaskService;
 import com.demo.java.common.utils.SpringContextUtil;
 import org.quartz.*;
 import org.quartz.impl.StdScheduler;
@@ -17,21 +18,21 @@ public class ScheduleFactory {
     // 实例化线程池
     StdScheduler scheduler = (StdScheduler) SpringContextUtil.getBean("schedulerFactoryBean");
 
-    JobService jobService = (JobService) SpringContextUtil.getBean("jobService");
+    TaskService taskService = (TaskService) SpringContextUtil.getBean("taskService");
 
     /**
      * 添加任务
      *
-     * @param job
+     * @param task
      * @throws SchedulerException
      */
-    public void addJob(ScheduleJob job) throws SchedulerException {
-        jobService.save(job);
-        if (job == null || !ScheduleJob.STATUS_RUNNING.equals(job.getStatus())) {
+    public void addJob(Task task) throws SchedulerException {
+        taskService.save(task);
+        if (task == null || !Task.STATUS_RUNNING.equals(task.getStatus())) {
             return;
         }
         LOG.info("{} add", scheduler);
-        runAJobNow(job);
+        runAJobNow(task);
     }
 
     /**
@@ -40,22 +41,22 @@ public class ScheduleFactory {
      * @return
      * @throws SchedulerException
      */
-    public List<ScheduleJob> getAllJob() throws SchedulerException {
-        Map<String, ScheduleJob> dbMap = jobService.map();
+    public List<Task> getAllJob() throws SchedulerException {
+        Map<String, Task> dbMap = taskService.map();
         GroupMatcher<JobKey> matcher = GroupMatcher.anyJobGroup();
         Set<JobKey> jobKeys = scheduler.getJobKeys(matcher);
         for (JobKey jobKey : jobKeys) {
             List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobKey);
             for (Trigger trigger : triggers) {
-                ScheduleJob job = dbMap.get(trigger.getKey().toString());
+                Task task = dbMap.get(trigger.getKey().toString());
                 Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
-                job.setStatus(triggerState.name());
+                task.setStatus(triggerState.name());
                 if (trigger instanceof CronTrigger) {
                     CronTrigger cronTrigger = (CronTrigger) trigger;
                     String cronExpression = cronTrigger.getCronExpression();
-                    job.setCronExpression(cronExpression);
+                    task.setCronExpression(cronExpression);
                 }
-                dbMap.put(trigger.getKey().toString(), job);
+                dbMap.put(trigger.getKey().toString(), task);
             }
         }
         return new ArrayList<>(dbMap.values());
@@ -67,25 +68,25 @@ public class ScheduleFactory {
      * @return
      * @throws SchedulerException
      */
-    public List<ScheduleJob> getRunningJob() throws SchedulerException {
+    public List<Task> getRunningJob() throws SchedulerException {
         List<JobExecutionContext> executingJobs = scheduler.getCurrentlyExecutingJobs();
-        List<ScheduleJob> jobList = new ArrayList<>(executingJobs.size());
+        List<Task> jobList = new ArrayList<>(executingJobs.size());
         for (JobExecutionContext executingJob : executingJobs) {
-            ScheduleJob job = new ScheduleJob();
+            Task task = new Task();
             JobDetail jobDetail = executingJob.getJobDetail();
             JobKey jobKey = jobDetail.getKey();
             Trigger trigger = executingJob.getTrigger();
-            job.setName(jobKey.getName());
-            job.setJobGroup(jobKey.getGroup());
-            job.setDescription("触发器:" + trigger.getKey());
+            task.setName(jobKey.getName());
+            task.setTaskGroup(jobKey.getGroup());
+            task.setDescription("触发器:" + trigger.getKey());
             Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
-            job.setStatus(triggerState.name());
+            task.setStatus(triggerState.name());
             if (trigger instanceof CronTrigger) {
                 CronTrigger cronTrigger = (CronTrigger) trigger;
                 String cronExpression = cronTrigger.getCronExpression();
-                job.setCronExpression(cronExpression);
+                task.setCronExpression(cronExpression);
             }
-            jobList.add(job);
+            jobList.add(task);
         }
         return jobList;
     }
@@ -93,58 +94,58 @@ public class ScheduleFactory {
     /**
      * 暂停一个job
      *
-     * @param scheduleJob
+     * @param task
      * @throws SchedulerException
      */
-    public void pauseJob(ScheduleJob scheduleJob) throws SchedulerException {
-        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getJobGroup());
+    public void pauseJob(Task task) throws SchedulerException {
+        JobKey jobKey = JobKey.jobKey(task.getName(), task.getTaskGroup());
         scheduler.pauseJob(jobKey);
     }
 
     /**
      * 恢复一个job
      *
-     * @param scheduleJob
+     * @param task
      * @throws SchedulerException
      */
-    public void resumeJob(ScheduleJob scheduleJob) throws SchedulerException {
-        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getJobGroup());
+    public void resumeJob(Task task) throws SchedulerException {
+        JobKey jobKey = JobKey.jobKey(task.getName(), task.getTaskGroup());
         scheduler.resumeJob(jobKey);
     }
 
     /**
      * 删除一个job
      *
-     * @param scheduleJob
+     * @param task
      * @throws SchedulerException
      */
-    public void deleteJob(ScheduleJob scheduleJob) throws SchedulerException {
-        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getJobGroup());
+    public void deleteJob(Task task) throws SchedulerException {
+        JobKey jobKey = JobKey.jobKey(task.getName(), task.getTaskGroup());
         scheduler.deleteJob(jobKey);
-        jobService.delete(scheduleJob.getId());
+        taskService.delete(task.getId());
     }
 
     /**
      * 立即执行job
      *
-     * @param job
+     * @param task
      * @throws SchedulerException
      */
-    public void runAJobNow(ScheduleJob job) throws SchedulerException {
+    public void runAJobNow(Task task) throws SchedulerException {
 //        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getGroup());
 //        scheduler.triggerJob(jobKey);
-        TriggerKey triggerKey = TriggerKey.triggerKey(job.getName(), job.getJobGroup());
+        TriggerKey triggerKey = TriggerKey.triggerKey(task.getName(), task.getTaskGroup());
         CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
         // 不存在，创建一个
         if (null == trigger) {
-            JobDetail jobDetail = JobBuilder.newJob(QuartzJobFactory.class).withIdentity(job.getName(), job.getJobGroup()).build();
-            jobDetail.getJobDataMap().put("scheduleJob", job);
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(job.getCronExpression());
-            trigger = TriggerBuilder.newTrigger().withIdentity(job.getName(), job.getJobGroup()).withSchedule(scheduleBuilder).build();
+            JobDetail jobDetail = JobBuilder.newJob(QuartzJobFactory.class).withIdentity(task.getName(), task.getTaskGroup()).build();
+            jobDetail.getJobDataMap().put("scheduleJob", task);
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(task.getCronExpression());
+            trigger = TriggerBuilder.newTrigger().withIdentity(task.getName(), task.getTaskGroup()).withSchedule(scheduleBuilder).build();
             scheduler.scheduleJob(jobDetail, trigger);
         } else {
             // Trigger已存在，那么更新相应的定时设置
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(job.getCronExpression());
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(task.getCronExpression());
             // 按新的cronExpression表达式重新构建trigger
             trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
             // 按新的trigger重新设置job执行
@@ -155,13 +156,13 @@ public class ScheduleFactory {
     /**
      * 更新job时间表达式
      *
-     * @param scheduleJob
+     * @param task
      * @throws SchedulerException
      */
-    public void updateJobCron(ScheduleJob scheduleJob) throws SchedulerException {
-        TriggerKey triggerKey = TriggerKey.triggerKey(scheduleJob.getName(), scheduleJob.getJobGroup());
+    public void updateJobCron(Task task) throws SchedulerException {
+        TriggerKey triggerKey = TriggerKey.triggerKey(task.getName(), task.getTaskGroup());
         CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression());
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(task.getCronExpression());
         trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
         scheduler.rescheduleJob(triggerKey, trigger);
     }

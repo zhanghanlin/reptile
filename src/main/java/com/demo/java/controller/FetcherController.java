@@ -1,7 +1,7 @@
 package com.demo.java.controller;
 
-import com.demo.java.collector.example.Car58LoginData;
-import com.demo.java.collector.example.CarCrawler;
+import com.demo.java.crawler.Car58LoginData;
+import com.demo.java.crawler.CarCrawler;
 import com.demo.java.model.Regex;
 import com.demo.java.service.RegexService;
 import org.springframework.stereotype.Controller;
@@ -30,9 +30,9 @@ public class FetcherController {
 
     @RequestMapping("/car58")
     @ResponseBody
-    public List<String> car58(){
+    public List<String> car58() {
         try {
-            Car58LoginData.getCarLoginInfo("username","password");
+            Car58LoginData.getCarLoginInfo("username", "password");
         } catch (Exception e) {
             e.printStackTrace();
         }

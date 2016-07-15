@@ -47,7 +47,7 @@
                     <c:forEach var="item" items="${list}" varStatus="status">
                         <tr id="${item.id}">
                             <td>${item.name}</td>
-                            <td>${item.jobGroup}</td>
+                            <td>${item.taskGroup}</td>
                             <td>${item.status}</td>
                             <td>${item.cronExpression}</td>
                             <td>${item.description}</td>

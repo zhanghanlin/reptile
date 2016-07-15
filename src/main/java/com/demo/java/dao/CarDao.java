@@ -58,7 +58,7 @@ public class CarDao {
     public int save(Car car) {
         String insert_sql = "INSERT INTO CAR(id,car_name,price,on_time," +
                 "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,url,address,source)" +
-                " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return jdbcTemplate.update(insert_sql, new Object[]{car.getId(),
                 car.getCarName(),
                 car.getPrice(),

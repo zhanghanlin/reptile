@@ -18,6 +18,8 @@ public class Regex {
     private String ignoreKey;   //抓取时如果页面存在该选择器的元素则忽略该页面
     private String data;    //自定义字段JSON格式
     private String taskKey; //任务Key唯一
+    private int isProxy;    //是否需要代理
+    private int isData; //是否需要设置Data数据
     private Date createTime;
     private Date updateTime;
 
@@ -91,6 +93,22 @@ public class Regex {
 
     public String getTaskKey() {
         return taskKey;
+    }
+
+    public int getIsProxy() {
+        return isProxy;
+    }
+
+    public void setIsProxy(int isProxy) {
+        this.isProxy = isProxy;
+    }
+
+    public int getIsData() {
+        return isData;
+    }
+
+    public void setIsData(int isData) {
+        this.isData = isData;
     }
 
     public void setTaskKey(String taskKey) {

@@ -1,8 +1,10 @@
 package com.demo.java.controller;
 
+import com.demo.java.common.quartz.FetcherQuartz;
 import com.demo.java.common.quartz.ScheduleFactory;
-import com.demo.java.common.quartz.ScheduleJob;
-import com.demo.java.service.JobService;
+import com.demo.java.model.Task;
+import com.demo.java.common.utils.ReflectUtils;
+import com.demo.java.service.TaskService;
 import org.quartz.SchedulerException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,16 +25,19 @@ public class QuartzController {
     ScheduleFactory scheduleFactory = new ScheduleFactory();
 
     @Resource
-    JobService jobService;
+    TaskService jobService;
 
     @RequestMapping("input")
     public ModelAndView input(@RequestParam(defaultValue = "") String regexId) {
-        return new ModelAndView("quartzInput", "regexId", regexId);
+        ModelAndView modelAndView = new ModelAndView("quartzInput");
+        modelAndView.addObject("regexId", regexId);
+        modelAndView.addObject("methods", ReflectUtils.getMethod(FetcherQuartz.class));
+        return modelAndView;
     }
 
     @RequestMapping("save")
     @ResponseBody
-    public String save(ScheduleJob job) {
+    public String save(Task job) {
         try {
             job.setUpdateTime(new Date());
             job.setCreateTime(new Date());
@@ -45,7 +50,7 @@ public class QuartzController {
 
     @RequestMapping("list")
     public ModelAndView list() {
-        List<ScheduleJob> list = new ArrayList<>();
+        List<Task> list = new ArrayList<>();
         try {
             list = scheduleFactory.getAllJob();
         } catch (SchedulerException e) {
@@ -58,7 +63,7 @@ public class QuartzController {
     @ResponseBody
     public String pauseJob(@PathVariable String id) {
         try {
-            ScheduleJob job = jobService.get(id);
+            Task job = jobService.get(id);
             scheduleFactory.pauseJob(job);
         } catch (SchedulerException e) {
             e.printStackTrace();
@@ -71,7 +76,7 @@ public class QuartzController {
     @ResponseBody
     public String resumeJob(@PathVariable String id) {
         try {
-            ScheduleJob job = jobService.get(id);
+            Task job = jobService.get(id);
             scheduleFactory.resumeJob(job);
         } catch (SchedulerException e) {
             e.printStackTrace();
@@ -83,7 +88,7 @@ public class QuartzController {
     @ResponseBody
     public String deleteJob(@PathVariable String id) {
         try {
-            ScheduleJob job = jobService.get(id);
+            Task job = jobService.get(id);
             scheduleFactory.deleteJob(job);
         } catch (SchedulerException e) {
             e.printStackTrace();
@@ -96,7 +101,7 @@ public class QuartzController {
     @ResponseBody
     public String runJob(@PathVariable String id) {
         try {
-            ScheduleJob job = jobService.get(id);
+            Task job = jobService.get(id);
             scheduleFactory.runAJobNow(job);
         } catch (SchedulerException e) {
             e.printStackTrace();
