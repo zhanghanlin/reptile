@@ -23,6 +23,7 @@ public class FetcherQuartz {
             Regex regex = regexService.get(id);
             CarCrawler carCrawler = new CarCrawler(regex.getTaskKey(), true);
             carCrawler.start(regex);
+            carCrawler.stop();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,7 +34,9 @@ public class FetcherQuartz {
      */
     public void fetcherProxyIp(String id) {
         try {
-            ProxyCrawler.startProxy();
+            ProxyCrawler proxyCrawler = new ProxyCrawler("proxy", true);
+            proxyCrawler.startProxy();
+            proxyCrawler.stop();
         } catch (Exception e) {
             e.printStackTrace();
         }

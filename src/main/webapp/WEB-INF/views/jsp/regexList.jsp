@@ -88,7 +88,7 @@
             type: 'GET',
             dataType: 'text',
             success: function (msg) {
-                alert(msg);
+                if (msg) alert(msg);
             }
         });
     });

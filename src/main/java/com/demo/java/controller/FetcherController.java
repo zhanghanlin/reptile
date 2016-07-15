@@ -31,6 +31,7 @@ public class FetcherController {
             CarCrawler carCrawler = new CarCrawler(regex.getTaskKey(), true);
             map.put(regex.getTaskKey(), carCrawler);
             carCrawler.start(regex);
+            carCrawler.stop();
             map.remove(regex.getTaskKey());
         } catch (Exception e) {
             e.printStackTrace();

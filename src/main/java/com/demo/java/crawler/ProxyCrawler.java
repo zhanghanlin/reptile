@@ -3,6 +3,8 @@ package com.demo.java.crawler;
 import com.demo.java.collector.model.CrawlDatums;
 import com.demo.java.collector.model.Page;
 import com.demo.java.collector.plugin.berkeley.BreadthCrawler;
+import com.demo.java.collector.util.FileUtils;
+import com.demo.java.common.utils.Config;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -54,10 +56,9 @@ public class ProxyCrawler extends BreadthCrawler {
     /**
      * 使用FileWriter
      */
-    public static void writeProxy(String content, boolean append) {
+    public void writeProxy(String content, boolean append) {
         try {
-            String classPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-            File file = new File(classPath + "/proxy");
+            File file = new File(classPath + "/proxy.bak");
             if (!file.exists()) {
                 try {
                     file.createNewFile();
@@ -74,6 +75,7 @@ public class ProxyCrawler extends BreadthCrawler {
         }
     }
 
+    static String classPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
     static String proxy_regex = "http://www.kuaidaili.com/proxylist/[0-9]+/";
 
     /**
@@ -81,14 +83,18 @@ public class ProxyCrawler extends BreadthCrawler {
      *
      * @throws Exception
      */
-    public static void startProxy() throws Exception {
-        LOG.info("update proxy ip run");
-        writeProxy("", false);  //清空代理列表
-        ProxyCrawler crawler = new ProxyCrawler("proxys", true);
-        crawler.addSeed("http://www.kuaidaili.com/proxylist/1/");
-        crawler.addRegex(proxy_regex);
-        crawler.setThreads(1);
-        crawler.start(5);
-        LOG.info("update proxy ip end");
+    public void startProxy() throws Exception {
+        writeProxy(Config.STRING_EMPTY, false);  //清空代理列表
+        this.addSeed("http://www.kuaidaili.com/proxylist/1/");
+        this.addRegex(proxy_regex);
+        this.setThreads(1);
+        this.start(2);
+        FileUtils.copy(new File(classPath + "/proxy.bak"), new File(classPath + "/proxy"));
+    }
+
+    public static void main(String[] args) throws Exception {
+        ProxyCrawler crawler = new ProxyCrawler("proxy", true);
+        crawler.startProxy();
+        crawler.stop();
     }
 }

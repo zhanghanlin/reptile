@@ -201,15 +201,4 @@ public class CarCrawler extends BreadthCrawler {
         this.setThreads(regex.getThread());
         this.start(regex.getStart());
     }
-
-    public static void main(String[] args) throws Exception {
-//        Regex t = new Regex();
-//        t.setSeed("http://bj.58.com/ershouche");
-//        t.setRegex("http://bj.58.com/ershouche/[0-9]+x.shtml(.*)");
-//        t.setStart(2);
-//        t.setTaskKey("test58");
-//        t.setThread(1);
-//        t.setIsProxy(1);
-//        start(t);
-    }
 }
