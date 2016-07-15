@@ -20,6 +20,9 @@ public class Car {
     private String userName;    //联系人
     private String phone;   //联系方式
     private String address; //地址
+
+    @Ignore
+    private String source;  //来源标识,默认使用抓取任务中唯一任务标识
     @Ignore
     private Date createTime;    //抓取时间
     @Ignore
@@ -147,24 +150,11 @@ public class Car {
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id='" + id + '\'' +
-                ", carName='" + carName + '\'' +
-                ", price='" + price + '\'' +
-                ", onTime='" + onTime + '\'' +
-                ", mileage='" + mileage + '\'' +
-                ", speedCase='" + speedCase + '\'' +
-                ", inspectExpire='" + inspectExpire + '\'' +
-                ", safeExpire='" + safeExpire + '\'' +
-                ", accident='" + accident + '\'' +
-                ", userName='" + userName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", url='" + url + '\'' +
-                '}';
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

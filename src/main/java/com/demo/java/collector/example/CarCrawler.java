@@ -76,8 +76,9 @@ public class CarCrawler extends BreadthCrawler {
             if (car != null && StringUtils.isNoneBlank(car.getCarName())) {
                 String url = page.getUrl();
                 //使用URL中最后一段数字作为ID
-                car.setId(PatternUtils.matchInteger(url, 1));
+                car.setId(regex.getTaskKey() + "_" + PatternUtils.matchInteger(url, 1));
                 car.setUrl(url);
+                car.setSource(regex.getTaskKey());
                 carService.saveOrUpdate(car);
             }
         }

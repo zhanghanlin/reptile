@@ -31,7 +31,7 @@ public class CarDao {
     public int update(Car car) {
         String update_sql = "UPDATE CAR SET car_name=?,price=?,on_time=?," +
                 "mileage=?,speed_case=?,inspect_expire=?,safe_expire=?,accident=?," +
-                "user_name=?,phone=?,url=?,address=?,update_time=NOW() WHERE id=?";
+                "user_name=?,phone=?,url=?,address=?,source=?,update_time=NOW() WHERE id=?";
         return jdbcTemplate.update(update_sql, new Object[]{car.getCarName(),
                 car.getPrice(),
                 car.getOnTime(),
@@ -44,6 +44,7 @@ public class CarDao {
                 car.getPhone(),
                 car.getUrl(),
                 car.getAddress(),
+                car.getSource(),
                 car.getId()
         });
     }
@@ -56,7 +57,7 @@ public class CarDao {
      */
     public int save(Car car) {
         String insert_sql = "INSERT INTO CAR(id,car_name,price,on_time," +
-                "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,url,address)" +
+                "mileage,speed_case,inspect_expire,safe_expire,accident,user_name,phone,url,address,source)" +
                 " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return jdbcTemplate.update(insert_sql, new Object[]{car.getId(),
                 car.getCarName(),
@@ -70,7 +71,8 @@ public class CarDao {
                 car.getUserName(),
                 car.getPhone(),
                 car.getUrl(),
-                car.getAddress()
+                car.getAddress(),
+                car.getSource()
         });
     }
 
