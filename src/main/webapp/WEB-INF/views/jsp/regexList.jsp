@@ -58,7 +58,7 @@
                             <td>
                                 <a class="btn btn-default btn-xs"
                                    role="button" href="/regex/input/${item.id}">编辑</a>
-                                <button class="btn btn-default btn-xs fetcher">爬取</button>
+                                <button class="btn btn-default btn-xs fetcher" action="start">爬取</button>
                                 <a class="btn btn-default btn-xs"
                                    role="button" href="/regex/delete/${item.id}">删除</a>
                                 <a class="btn btn-default btn-xs"
@@ -78,8 +78,9 @@
 <script>
     $('.fetcher').click(function () {
         var id = $(this).parents('tr').attr('id');
+        var action = $(this).attr('action');
         $.ajax({
-            url: '/fetcher/' + id,
+            url: '/fetcher/' + action + '/' + id,
             type: 'GET',
             dataType: 'text',
             success: function (msg) {

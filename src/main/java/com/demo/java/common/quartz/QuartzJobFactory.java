@@ -12,13 +12,9 @@ import org.slf4j.LoggerFactory;
  */
 public class QuartzJobFactory implements Job {
 
-    final static Logger LOG = LoggerFactory.getLogger(QuartzJobFactory.class);
-
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        LOG.info("Task Run");
         Task task = (Task) context.getMergedJobDataMap().get("scheduleJob");
-        LOG.info("Task Name:" + task.getName());
         TaskUtils.invokeMethod(task);
     }
 }

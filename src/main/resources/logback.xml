@@ -20,7 +20,7 @@
         <level value="INFO"/>
     </logger>
     <logger name="com.demo.java.collector">
-        <level value="INFO"/>
+        <level value="WARN"/>
     </logger>
     <!-- Console -->
     <root level="INFO">

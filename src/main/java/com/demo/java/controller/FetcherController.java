@@ -19,14 +19,26 @@ public class FetcherController {
     @Resource
     RegexService regexService;
 
-    @RequestMapping("/{id}")
+    @RequestMapping("/start/{id}")
     @ResponseBody
-    public String save(@PathVariable String id) {
+    public String fetcherStart(@PathVariable String id) {
         Regex regex = regexService.get(id);
-        FetcherThread ft = new FetcherThread(regex);
-        ft.start();
+        try {
+            CarCrawler.start(regex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "后台爬取中...";
     }
+
+    @RequestMapping("/stop/{id}")
+    @ResponseBody
+    public String fetcherStop(@PathVariable String id) {
+        Regex regex = regexService.get(id);
+        CarCrawler.stop(regex);
+        return "停止爬取";
+    }
+
 
     @RequestMapping("/car58")
     @ResponseBody
@@ -37,24 +49,5 @@ public class FetcherController {
             e.printStackTrace();
         }
         return Car58LoginData.titles;
-    }
-
-    class FetcherThread extends Thread {
-
-        private Regex regex;
-
-        public FetcherThread(Regex regex) {
-            super();
-            this.regex = regex;
-        }
-
-        @Override
-        public void run() {
-            try {
-                CarCrawler.start(regex);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

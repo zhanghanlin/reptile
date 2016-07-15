@@ -6,6 +6,8 @@ import com.demo.java.collector.plugin.berkeley.BreadthCrawler;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -15,6 +17,8 @@ import java.io.IOException;
  * 代理抓取
  */
 public class ProxyCrawler extends BreadthCrawler {
+
+    final static Logger LOG = LoggerFactory.getLogger(ProxyCrawler.class);
 
     /**
      * 构造一个基于伯克利DB的爬虫
@@ -78,16 +82,13 @@ public class ProxyCrawler extends BreadthCrawler {
      * @throws Exception
      */
     public static void startProxy() throws Exception {
-        LOG.info("===========startProxy");
-        writeProxy("", false);
+        LOG.info("update proxy ip run");
+        writeProxy("", false);  //清空代理列表
         ProxyCrawler crawler = new ProxyCrawler("proxys", true);
         crawler.addSeed("http://www.kuaidaili.com/proxylist/1/");
         crawler.addRegex(proxy_regex);
         crawler.setThreads(1);
         crawler.start(5);
+        LOG.info("update proxy ip end");
     }
-
-//    public static void main(String[] args) throws Exception {
-//        startProxy();
-//    }
 }
