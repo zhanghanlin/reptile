@@ -32,7 +32,23 @@ public class ScheduleFactory {
             return;
         }
         LOG.info("{} add", scheduler);
-        runAJobNow(task);
+        TriggerKey triggerKey = TriggerKey.triggerKey(task.getName(), task.getTaskGroup());
+        CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
+        // 不存在，创建一个
+        if (null == trigger) {
+            JobDetail jobDetail = JobBuilder.newJob(QuartzJobFactory.class).withIdentity(task.getName(), task.getTaskGroup()).build();
+            jobDetail.getJobDataMap().put("scheduleJob", task);
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(task.getCronExpression());
+            trigger = TriggerBuilder.newTrigger().withIdentity(task.getName(), task.getTaskGroup()).withSchedule(scheduleBuilder).build();
+            scheduler.scheduleJob(jobDetail, trigger);
+        } else {
+            // Trigger已存在，那么更新相应的定时设置
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(task.getCronExpression());
+            // 按新的cronExpression表达式重新构建trigger
+            trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
+            // 按新的trigger重新设置job执行
+            scheduler.rescheduleJob(triggerKey, trigger);
+        }
     }
 
     /**
@@ -132,25 +148,8 @@ public class ScheduleFactory {
      * @throws SchedulerException
      */
     public void runAJobNow(Task task) throws SchedulerException {
-//        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getGroup());
-//        scheduler.triggerJob(jobKey);
-        TriggerKey triggerKey = TriggerKey.triggerKey(task.getName(), task.getTaskGroup());
-        CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
-        // 不存在，创建一个
-        if (null == trigger) {
-            JobDetail jobDetail = JobBuilder.newJob(QuartzJobFactory.class).withIdentity(task.getName(), task.getTaskGroup()).build();
-            jobDetail.getJobDataMap().put("scheduleJob", task);
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(task.getCronExpression());
-            trigger = TriggerBuilder.newTrigger().withIdentity(task.getName(), task.getTaskGroup()).withSchedule(scheduleBuilder).build();
-            scheduler.scheduleJob(jobDetail, trigger);
-        } else {
-            // Trigger已存在，那么更新相应的定时设置
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(task.getCronExpression());
-            // 按新的cronExpression表达式重新构建trigger
-            trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
-            // 按新的trigger重新设置job执行
-            scheduler.rescheduleJob(triggerKey, trigger);
-        }
+        JobKey jobKey = JobKey.jobKey(task.getName(), task.getTaskGroup());
+        scheduler.triggerJob(jobKey);
     }
 
     /**

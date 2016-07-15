@@ -45,15 +45,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">是否启动任务</label>
-                    <div class="col-sm-10">
-                        <select class="form-control" name="status">
-                            <option value="0">不启动</option>
-                            <option value="1">启动</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-sm-2 control-label">执行类</label>
                     <div class="col-sm-10">
                         <select class="form-control" name="beanClass">
@@ -77,7 +68,7 @@
                     <label for="methodParam" class="col-sm-2 control-label">方法参数</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" value="${regexId}" name="methodParam" id="methodParam"
-                               placeholder="methodParam" disabled>
+                               placeholder="methodParam">
                     </div>
                 </div>
                 <div class="form-group">

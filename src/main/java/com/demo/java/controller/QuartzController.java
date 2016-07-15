@@ -36,7 +36,6 @@ public class QuartzController {
     }
 
     @RequestMapping("save")
-    @ResponseBody
     public String save(Task job) {
         try {
             job.setUpdateTime(new Date());
@@ -45,7 +44,7 @@ public class QuartzController {
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
-        return "OK";
+        return "redirect:/quartz/list";
     }
 
     @RequestMapping("list")

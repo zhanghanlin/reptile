@@ -28,7 +28,7 @@ public class Task {
     /**
      * 任务状态 是否启动任务
      */
-    private String status;
+    private String status = STATUS_RUNNING;
 
     /**
      * cron表达式
