@@ -8,5 +8,7 @@ CREATE TABLE regex
     data VARCHAR(2000),
     name VARCHAR(255),
     create_time DATETIME DEFAULT 'CURRENT_TIMESTAMP',
-    update_time DATETIME DEFAULT 'CURRENT_TIMESTAMP'
+    update_time DATETIME DEFAULT 'CURRENT_TIMESTAMP',
+    ignore_key VARCHAR(255),
+    task_key VARCHAR(255)
 );

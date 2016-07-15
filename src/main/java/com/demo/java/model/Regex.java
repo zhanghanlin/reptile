@@ -14,6 +14,7 @@ public class Regex {
     private int thread;
     private String ignoreKey;
     private String data;
+    private String taskKey;
     private Date createTime;
     private Date updateTime;
 
@@ -79,6 +80,14 @@ public class Regex {
 
     public String getIgnoreKey() {
         return ignoreKey;
+    }
+
+    public String getTaskKey() {
+        return taskKey;
+    }
+
+    public void setTaskKey(String taskKey) {
+        this.taskKey = taskKey;
     }
 
     public void setIgnoreKey(String ignoreKey) {
