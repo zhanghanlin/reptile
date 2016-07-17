@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <context-param>
-        <param-name>WebCollector</param-name>
-        <param-value>WebCollector</param-value>
+        <param-name>Reptile</param-name>
+        <param-value>Reptile</param-value>
     </context-param>
 
     <!-- Spring ApplicationContext配置文件的路径,可使用通配符,多个路径用,号分隔 此参数用于后面的Spring Context Loader -->
