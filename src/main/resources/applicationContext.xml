@@ -17,7 +17,7 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <!-- Property -->
-    <context:property-placeholder location="classpath:collector.properties" ignore-unresolvable="true"
+    <context:property-placeholder location="classpath:reptile.properties" ignore-unresolvable="true"
                                   file-encoding="UTF-8"/>
     <!-- Druid DataSource数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
