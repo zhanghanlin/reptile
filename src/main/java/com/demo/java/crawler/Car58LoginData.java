@@ -1,11 +1,11 @@
 package com.demo.java.crawler;
 
-import com.demo.java.collector.crawldb.DBManager;
-import com.demo.java.collector.crawler.Crawler;
-import com.demo.java.collector.fetcher.Executor;
-import com.demo.java.collector.model.CrawlDatum;
-import com.demo.java.collector.model.CrawlDatums;
-import com.demo.java.collector.plugin.berkeley.BerkeleyDBManager;
+import cn.edu.hfut.dmic.webcollector.crawldb.DBManager;
+import cn.edu.hfut.dmic.webcollector.crawler.Crawler;
+import cn.edu.hfut.dmic.webcollector.fetcher.Executor;
+import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
+import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
+import cn.edu.hfut.dmic.webcollector.plugin.berkeley.BerkeleyDBManager;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.impl.Jdk14Logger;
 import org.openqa.selenium.By;

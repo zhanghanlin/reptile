@@ -1,7 +1,6 @@
 package com.demo.java.common.utils;
 
-import org.apache.commons.collections.map.HashedMap;
-
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -9,7 +8,7 @@ import java.util.Map;
  */
 public class CollectorDisc {
 
-    public static Map<String, String> map = new HashedMap();
+    public static Map<String, String> map = new HashMap();
 
     static {
         map.put("carName","名称");

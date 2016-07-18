@@ -101,34 +101,27 @@
             <version>${spring.version}</version>
         </dependency>
         <!-- Spring end -->
-        <!-- WebCollector -->
         <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>${jsoup.version}</version>
+            <groupId>cn.edu.hfut.dmic.webcollector</groupId>
+            <artifactId>WebCollector</artifactId>
+            <version>${webCollector.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.googlecode.juniversalchardet</groupId>
-            <artifactId>juniversalchardet</artifactId>
-            <version>${juniversalchardet.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>${json.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sleepycat</groupId>
-            <artifactId>je</artifactId>
-            <version>${sleepycat.version}</version>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
-            <!--<scope>provided</scope>-->
         </dependency>
-        <!-- WebCollector end -->
     </dependencies>
     <properties>
         <java.version>1.7</java.version>
@@ -141,13 +134,11 @@
         <aspectj.version>1.7.4</aspectj.version>
         <druid.version>1.0.12</druid.version>
         <mysql.version>5.1.38</mysql.version>
-        <jsoup.version>1.8.3</jsoup.version>
-        <json.version>20140107</json.version>
-        <juniversalchardet.version>1.0.3</juniversalchardet.version>
-        <sleepycat.version>5.0.73</sleepycat.version>
         <selenium.version>2.44.0</selenium.version>
         <quartz.version>2.2.1</quartz.version>
         <junit.version>4.12</junit.version>
+        <webCollector.version>2.31</webCollector.version>
+        <commons-codec.version>1.9</commons-codec.version>
         <plugin.compiler.version>3.1</plugin.compiler.version>
     </properties>
     <build>

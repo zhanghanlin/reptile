@@ -4,13 +4,13 @@ import com.demo.java.crawler.Car58LoginData;
 import com.demo.java.crawler.CarCrawler;
 import com.demo.java.model.Regex;
 import com.demo.java.service.RegexService;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +18,7 @@ import java.util.Map;
 @RequestMapping("fetcher")
 public class FetcherController {
 
-    static Map<String, CarCrawler> map = new HashedMap();
+    static Map<String, CarCrawler> map = new HashMap();
 
     @Resource
     RegexService regexService;

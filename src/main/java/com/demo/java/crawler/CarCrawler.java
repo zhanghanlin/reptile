@@ -1,15 +1,15 @@
 package com.demo.java.crawler;
 
+import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
+import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
+import cn.edu.hfut.dmic.webcollector.model.Page;
+import cn.edu.hfut.dmic.webcollector.net.HttpRequest;
+import cn.edu.hfut.dmic.webcollector.net.HttpResponse;
+import cn.edu.hfut.dmic.webcollector.net.Proxys;
+import cn.edu.hfut.dmic.webcollector.plugin.berkeley.BreadthCrawler;
+import cn.edu.hfut.dmic.webcollector.util.FileUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.demo.java.collector.model.CrawlDatum;
-import com.demo.java.collector.model.CrawlDatums;
-import com.demo.java.collector.model.Page;
-import com.demo.java.collector.net.HttpRequest;
-import com.demo.java.collector.net.HttpResponse;
-import com.demo.java.collector.net.Proxys;
-import com.demo.java.collector.plugin.berkeley.BreadthCrawler;
-import com.demo.java.collector.util.FileUtils;
 import com.demo.java.common.utils.PatternUtils;
 import com.demo.java.common.utils.SpringContextUtil;
 import com.demo.java.model.Car;

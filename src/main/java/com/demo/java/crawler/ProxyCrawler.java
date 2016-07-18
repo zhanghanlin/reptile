@@ -1,15 +1,13 @@
 package com.demo.java.crawler;
 
-import com.demo.java.collector.model.CrawlDatums;
-import com.demo.java.collector.model.Page;
-import com.demo.java.collector.plugin.berkeley.BreadthCrawler;
-import com.demo.java.collector.util.FileUtils;
+import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
+import cn.edu.hfut.dmic.webcollector.model.Page;
+import cn.edu.hfut.dmic.webcollector.plugin.berkeley.BreadthCrawler;
+import cn.edu.hfut.dmic.webcollector.util.FileUtils;
 import com.demo.java.common.utils.Config;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,8 +20,6 @@ import static com.demo.java.common.utils.Config.PROXY_FILE_BAK;
  * 代理抓取
  */
 public class ProxyCrawler extends BreadthCrawler {
-
-    final static Logger LOG = LoggerFactory.getLogger(ProxyCrawler.class);
 
     /**
      * 构造一个基于伯克利DB的爬虫

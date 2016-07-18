@@ -19,7 +19,7 @@
     <logger name="com.demo.java">
         <level value="INFO"/>
     </logger>
-    <logger name="com.demo.java.collector">
+    <logger name="cn.edu.hfut.dmic.webcollector">
         <level value="WARN"/>
     </logger>
     <!-- Console -->
